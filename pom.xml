@@ -33,7 +33,7 @@
         <java.version>1.8</java.version>
 
         <fabric8.version>2.2.176</fabric8.version>
-        <springboot-version>1.4.2.RELEASE</springboot-version>
+        <springboot.version>1.4.2.RELEASE</springboot.version>
         <tomcat.version>8.0.36</tomcat.version>
         <keycloak.version>1.9.8.Final</keycloak.version>
 
@@ -87,6 +87,33 @@
                 <version>${keycloak.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <!-- This -->
+            <dependency>
+                <groupId>org.jboss.quickstart</groupId>
+                <artifactId>springboot-rest</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- Tomcat -->
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-core</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-el</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat.embed</groupId>
+                <artifactId>tomcat-embed-websocket</artifactId>
+                <version>${tomcat.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.tomcat</groupId>
+                <artifactId>tomcat-juli</artifactId>
+                <version>${tomcat.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
