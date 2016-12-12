@@ -63,6 +63,7 @@ oc login --username=admin --password=admin
 ```
 oc new-project sso
 oc create -f etc/app-template.json
+oc process secured-springboot-rest | oc create -f -
 ```
 
 ## Spring Boot secured
