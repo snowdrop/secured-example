@@ -31,7 +31,7 @@
     <packaging>jar</packaging>
 
     <name>rest</name>
-    <description>Obsidian :: Quickstart :: Spring Boot Tomcat - Rest</description>
+    <description>Obsidian :: Quickstart :: Secured Spring Boot Tomcat - Rest</description>
 
     <dependencies>
         <dependency>

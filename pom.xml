@@ -25,7 +25,7 @@
     <packaging>pom</packaging>
 
     <name>parent</name>
-    <description>Obsidian :: Quickstart :: Spring Boot Tomcat - Rest [Parent]</description>
+    <description>Obsidian :: Quickstart :: Secured Spring Boot Tomcat - Rest [Parent]</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
