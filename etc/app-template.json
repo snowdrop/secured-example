@@ -18,7 +18,7 @@
     {
       "description": "The name for the application.",
       "name": "APPLICATION_NAME",
-      "value": "springboot-rest",
+      "value": "secured-springboot-rest",
       "required": true
     },
     {
@@ -30,7 +30,7 @@
     {
       "description": "Git branch/tag reference",
       "name": "SOURCE_REPOSITORY_REF",
-      "value": "sso",
+      "value": "master",
       "required": false
     },
     {
