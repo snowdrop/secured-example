@@ -1,0 +1,15 @@
+---
+kind: Route
+apiVersion: v1
+id: sso-http
+metadata:
+  name: sso
+  labels:
+    application: sso
+    component: server
+  annotations:
+    description: Route for application's http service.
+spec:
+  host: "${SSO_HOSTNAME_HTTP}"
+  to:
+    name: sso
