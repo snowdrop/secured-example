@@ -20,12 +20,12 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.jboss.quickstart</groupId>
-    <artifactId>springboot-rest</artifactId>
+    <artifactId>secured-springboot-rest</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>rest</name>
-    <description>Obsidian :: Quickstart :: Spring Boot Tomcat - Rest</description>
+    <description>Obsidian :: Quickstart :: Secured Spring Boot Tomcat - Rest</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
