@@ -8,7 +8,7 @@
       "tags": "javaee,java,jboss,xpaas,sso",
       "version": "1.3.2"
     },
-    "name": "springboot-rest"
+    "name": "secured-springboot-rest"
   },
   "labels": {
     "template": "springboot-rest",
