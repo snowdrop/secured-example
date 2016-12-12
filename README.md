@@ -58,6 +58,16 @@ eval $(minishift docker-env)
 oc login --username=admin --password=admin
 ```
 
+## Red Hat SSO
+
+```
+oc new-project sso
+oc create -f etc/app-template.json
+```
+
+## Spring Boot secured
+
+
 Next, we will use the Fabric8 Maven plugin which is a Java OpenShift/Kubernetes API able to communicate with the prlatform in order to request to build the docker image and next to create using Kubernetes
 a pod from the image of our application.
 
@@ -66,8 +76,6 @@ A maven profile has been defined within this project to configure the Fabric8 Ma
 ```
 mvn clean fabric8:build -Popenshift -DskipTests
 ```
-
-Remark : To use the official Red Hat S2I image, then we must configure the Fabric8 Maven Plugin to use the Java S2I image with this parameter `-Dfabric8.generator.from=registry.access.redhat.com/jboss-fuse-6/fis-java-openshift`
 
 Next we can deploy the templates top of OpenShift and wait till kubernetes has created the POD
 

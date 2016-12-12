@@ -24,7 +24,7 @@
     {
       "description": "Git source URI for application",
       "name": "SOURCE_REPOSITORY_URL",
-      "value": "https://github.com/alesj/quick_rest_springboot-tomcat",
+      "value": "https://github.com/obsidian-toaster-quickstarts/quick_rest_springboot-tomcat",
       "required": true
     },
     {
