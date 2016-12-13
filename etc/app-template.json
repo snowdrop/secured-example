@@ -260,7 +260,7 @@
                     "path": "/health",
                     "port": 8080
                   },
-                  "initialDelaySeconds" : 30
+                  "initialDelaySeconds": 30
                 },
                 "ports": [
                   {
@@ -480,7 +480,7 @@
                       "/opt/eap/bin/livenessProbe.sh"
                     ]
                   },
-                  "initialDelaySeconds" : 180
+                  "initialDelaySeconds": 180
                 },
                 "readinessProbe": {
                   "exec": {
@@ -491,6 +491,11 @@
                     ]
                   }
                 },
+                "triggers": [
+                  {
+                    "type": "ConfigChange"
+                  }
+                ],
                 "ports": [
                   {
                     "name": "jolokia",

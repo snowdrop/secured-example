@@ -52,6 +52,8 @@ spec:
             - "/bin/bash"
             - "-c"
             - "/opt/eap/bin/readinessProbe.sh"
+        triggers:
+        - type: ConfigChange
         ports:
         - name: jolokia
           containerPort: 8778
