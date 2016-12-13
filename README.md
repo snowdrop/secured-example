@@ -1,6 +1,6 @@
 # Introduction
 
-This project exposes a simple REST endpoint where the service `greeting` is available at this address `http://hostname:port/greeting` and returns a json Greeting message
+This project exposes a simple REST endpoint where the service `greeting` is available, but properly secured, at this address `http://hostname:port/greeting` and returns a json Greeting message after authentication
 
 ```
 {
@@ -12,86 +12,41 @@ This project exposes a simple REST endpoint where the service `greeting` is avai
 
 The id of the message is incremented for each request. To customize the message, you can pass as parameter the name of the person that you want to send your greeting.
 
-# Build
+# Build and test
 
-The project bundles the Apache Tomcat 8.0.36 artifacts with SpringBoot 1.4.1.RELEASE. It can be used with the Apache Tomcat Red Hat Jar or the files
-proposed by the Apache Tomcat Community project. The by default profile will use the Red Hat jar files but you can also make a test using the community files.
+The project is spilt into two modules - app and build.
+App module exposes simple SpringBoot REST endpoint. For this it bundles the Apache Tomcat 8.0.36 artifacts with SpringBoot 1.4.1.RELEASE.
+Where build module contains OpenShift resources required to deploy RH-SSO along with the "app" module.
 
 To build the project, use this maven command.
 
 ```
-mvn clean install
+mvn fabric8:resource package fabric8:build -DskipTests
 ```
+(atm, we exclude / ignore tests, as they hit RH-SSO which we don't have running as part of the tests)
 
-# Launch and test
+# Launch / deploy
 
-To start Spring Boot , run the following commands in order to start the maven goal of Spring Boot
+The goal is to launch this quickstart against a running OpenShift environment.
+The easiest way to do this is to create an account on OpenShift Online (OSO): https://console.dev-preview-stg.openshift.com/
+(or you're welcome to setup your own OpenShift env; via minishift, etc)
+Once you have this, along with OpenShift CLI tools, you're ready to go.
 
-```
-mvn spring-boot:run
-```
+Create a new project on OpenShift: oc new-project <some_project_name>.
 
-If the application has been launched without any error, you can access the REST endpoint exposed using curl or httpie tool
-
-```
-http http://localhost:8080/greeting
-curl http://localhost:8080/greeting
-```
-
-To pass a parameter for the Greeting Service, use this HTTP request
+To deploy the whole secured app, first move to build/ dir, and then simply use Fabric8 run:
 
 ```
-http http://localhost:8080/greeting name==Charles
-curl http://localhost:8080/greeting -d name=Bruno
+cd build
+mvn fabric8:run
 ```
 
+Open OpenShift console in the browser to see the status of the app,
+and the exact routes, to be used to access the app's greeting endpoint.
+(or to access RH-SSO's admin console)
 
-# OpenShift
+Note: until https://issues.jboss.org/browse/CLOUD-1166 is fixed,
+we need to fix the redirect-uri in RH-SSO admin console, to point to our app's route.
 
-The Project can be deployed top of Openshift using the [minishift tool](https://github.com/minishift/minishift) who will take care to install within a Virtual machine (Virtualbox, libvirt or Xhyve) the OpenShift platform
-like also a Docker daemon. For that purpose, you will first issue within a terminal the following commands.
-
-```
-minishift delete
-minishift start --openshift-version=v1.3.1
-eval $(minishift docker-env)
-oc login --username=admin --password=admin
-```
-
-## Red Hat SSO
-
-```
-oc new-project sso
-oc create -f etc/app-template.json
-oc process secured-springboot-rest | oc create -f -
-```
-
-## Spring Boot secured
-
-
-Next, we will use the Fabric8 Maven plugin which is a Java OpenShift/Kubernetes API able to communicate with the prlatform in order to request to build the docker image and next to create using Kubernetes
-a pod from the image of our application.
-
-A maven profile has been defined within this project to configure the Fabric8 Maven plugin
-
-```
-mvn clean fabric8:build -Popenshift -DskipTests
-```
-
-Next we can deploy the templates top of OpenShift and wait till kubernetes has created the POD
-
-```
-mvn -Popenshift fabric8:deploy -DskipTests
-```
-
-Then, you can test the service deployed in OpenShift and get a response message 
-
-```
-http $(minishift service springboot-rest --url=true)/greeting
-```
-
-To test the project against OpenShift using Arquillian, simply run this command
-
-```
-mvn test -Popenshift
-```
+Ctrl-C is to exit the deploy (it sets repl. controllers to zero).
+Where you do a full cleanup with "mvn fabric8:undeploy".
