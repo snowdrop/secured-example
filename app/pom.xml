@@ -75,7 +75,7 @@
 
         <!-- KeyCloak -->
 
-        <!-- dependency>
+        <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-adapter-spi</artifactId>
         </dependency>
@@ -88,7 +88,7 @@
         <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-spring-boot-adapter</artifactId>
-        </dependency -->
+        </dependency>
 
         <!-- Testing -->
         <dependency>
