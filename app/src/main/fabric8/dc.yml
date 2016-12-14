@@ -7,3 +7,5 @@ spec:
       - env:
         - name: SSO_URL
           value: ${SSO_URL}
+  triggers:
+  - type: ConfigChange
