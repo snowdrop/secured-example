@@ -50,3 +50,21 @@ we need to fix the redirect-uri in RH-SSO admin console, to point to our app's r
 
 Ctrl-C is to exit the deploy (it sets repl. controllers to zero).
 Where you do a full cleanup with "mvn fabric8:undeploy".
+
+
+If the pod of the Secured Spring Boot Application is running like also the Red Hat SSO Server, you 
+can use one of the bash scripts proposed within the QuickStart to access the service.
+
+Depending which tool you prefer to use (curl or httpie), use one of them and pass as parameters
+the address of the Red Hat Secured SSO Server and the Secured Spring Boot Application. 
+
+```
+./httpie_token_req.sh https://secure-sso-sso.e8ca.engint.openshiftapps.com http://springboot-rest-sso.e8ca.engint.openshiftapps.com
+```
+
+The URLs of the Red Hat SSO & Spring Boot Application are created according to this convention:
+
+* Red Hat Secured SSO : <secured_sso_route>.<namespace>.<host_machine>
+* Secured Spring Boot Application : <secured_springboot_route>.<namespace>.<host_machine>
+
+You can find such routes using a oc client command `oc get routes` or the Openshift Console.
