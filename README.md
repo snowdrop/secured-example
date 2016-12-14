@@ -65,6 +65,7 @@ the address of the Red Hat Secured SSO Server and the Secured Spring Boot Applic
 
 ```
 ./httpie_token_req.sh https://secure-sso-sso.e8ca.engint.openshiftapps.com http://springboot-rest-sso.e8ca.engint.openshiftapps.com
+./curl_token_req.sh https://secure-sso-sso.e8ca.engint.openshiftapps.com http://springboot-rest-sso.e8ca.engint.openshiftapps.com
 ```
 
 The URLs of the Red Hat SSO & Spring Boot Application are created according to this convention:
