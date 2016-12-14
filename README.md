@@ -27,7 +27,7 @@ mvn fabric8:resource fabric8:build package -DskipTests
 
 # Test
 
-To test locally the quickstart, install, configure & start a Red Hat SSO server. Next, pass as parameter the URL to access the SSO Server 
+To test locally the quickstart, install & start a Red Hat SSO server. Next, pass as parameter the URL to access the SSO Server 
 
 ```
 mvn test -Dsso.url=http://localhost:8080
