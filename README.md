@@ -1,6 +1,6 @@
 # Introduction
 
-This project exposes a simple REST endpoint where the service `greeting` is available, but properly secured, at this address `http://hostname:port/greeting` and returns a json Greeting message after authentication
+This project exposes a simple Secured REST endpoint where the service `greeting` is available, but properly secured, at this address `http://hostname:port/greeting` and returns a json Greeting message after authentication
 
 ```
 {
@@ -12,37 +12,30 @@ This project exposes a simple REST endpoint where the service `greeting` is avai
 
 The id of the message is incremented for each request. To customize the message, you can pass as parameter the name of the person that you want to send your greeting.
 
+The project is spilt into two Apache Maven modules - `app` and `build`.
+The `App` module exposes the REST Service using as technology Spring Boot bundled with the Apache Tomcat 8.0.36 artifacts while the `build` module contains the OpenShift objects
+required to deploy the Red Hat SSO Server 7.0 along with the "app" module.
+
+The goal of this project is to deploy the quickstart against an OpenShift environment (online, dedicated, ...).
+
 # Build
 
-The project is spilt into two modules - app and build.
-App module exposes simple SpringBoot REST endpoint. For this it bundles the Apache Tomcat 8.0.36 artifacts with SpringBoot 1.4.1.RELEASE.
-Where build module contains OpenShift resources required to deploy RH-SSO along with the "app" module.
+In order to build and deploy this project, it is required to have an account on an OpenShift Online (OSO): https://console.dev-preview-stg.openshift.com/ instance
+or you're welcome to setup your own OpenShift env; via minishift.
 
-To build the project, use this maven command.
+Once you have this, along with the [OpenShift CLI tool](https://docs.openshift.com/online/cli_reference/get_started_cli.html), you're ready to go.
 
-```
-mvn fabric8:resource fabric8:build package -DskipTests
-```
-(atm, we exclude / ignore tests, as they hit RH-SSO which we don't have running as part of the tests)
+Open a terminal, log on to the OpenShift Server `oc login https://<OPENSHIFT_ADDRESS> --token=MYTOLEN` when you use OpenShift Online or Dedicated.
 
-# Test
-
-To test locally the quickstart, install & start a Red Hat SSO server. Next, pass as parameter the URL to access the SSO Server 
+Create a new project on OpenShift `oc new-project <some_project_name>` and next build the quickstart 
 
 ```
-mvn test -Dsso.url=http://localhost:8080
+mvn clean install
 ```
 
 # Launch / deploy
 
-The goal is to launch this quickstart against a running OpenShift environment.
-The easiest way to do this is to create an account on OpenShift Online (OSO): https://console.dev-preview-stg.openshift.com/
-(or you're welcome to setup your own OpenShift env; via minishift, etc)
-Once you have this, along with OpenShift CLI tools, you're ready to go.
-
-Create a new project on OpenShift: oc new-project <some_project_name>.
-
-To deploy the whole secured app, first move to build/ dir, and then simply use Fabric8 run:
+To deploy the whole secured app, first move to build/ dir, and then simply use the `Fabric8` Maven Plugin with the goal `run`:
 
 ```
 cd build
@@ -50,20 +43,19 @@ mvn fabric8:run
 ```
 
 Open OpenShift console in the browser to see the status of the app,
-and the exact routes, to be used to access the app's greeting endpoint.
-(or to access RH-SSO's admin console)
+and the exact routes, to be used to access the app's greeting endpoint or to access the Red Hat SSO's admin console.
 
 Note: until https://issues.jboss.org/browse/CLOUD-1166 is fixed,
 we need to fix the redirect-uri in RH-SSO admin console, to point to our app's route.
 
-Ctrl-C is to exit the deploy (it sets repl. controllers to zero).
-Where you do a full cleanup with "mvn fabric8:undeploy".
+TODO - Explain how to configure the ENV VAR of the SSO_URL part of the DeploymentConfig
 
+# Access the service
 
 If the pod of the Secured Spring Boot Application is running like also the Red Hat SSO Server, you 
-can use one of the bash scripts proposed within the QuickStart to access the service.
+can use one of the bash scripts proposed within the root of the project to access the service.
 
-Depending which tool you prefer to use (curl or httpie), use one of them and pass as parameters
+Depending which tool you prefer to use (curl or httpie), use one of bash files available and pass as parameters
 the address of the Red Hat Secured SSO Server and the Secured Spring Boot Application. 
 
 ```
@@ -75,6 +67,14 @@ The URLs of the Red Hat SSO & Spring Boot Application are created according to t
 * Red Hat Secured SSO : <secured_sso_route>.<namespace>.<host_machine>
 * Secured Spring Boot Application : <secured_springboot_route>.<namespace>.<host_machine>
 
-You can find such routes using a oc client command `oc get routes` or the Openshift Console.
+You can find such routes using this oc client command `oc get routes` or the Openshift Console.
 
-TODO - Explain how to configure the ENV VAR of the SSO_URL part of the DeploymentConfig
+# Test
+
+(atm, we exclude / ignore tests, as they hit RH-SSO which we don't have running as part of the tests)
+
+To test locally the quickstart, install & start a Red Hat SSO server. Next, pass as parameter the URL to access the SSO Server 
+
+```
+mvn test -Dsso.url=http://localhost:8080
+```
