@@ -39,7 +39,7 @@ To deploy the whole secured app, first move to build/ dir, and then simply use t
 
 ```
 cd build
-mvn fabric8:start
+mvn fabric8:run
 ```
 
 Open OpenShift console in the browser to see the status of the app,
@@ -53,7 +53,7 @@ You can change this value using the following oc command where the https server 
 in OpenShift.
 
 ```
-oc env dc/springboot-rest SSO_URL=https://secure-sso-sso.e8ca.engint.openshiftapps.com1/auth
+oc env dc/springboot-rest SSO_URL=https://secure-sso-sso.e8ca.engint.openshiftapps.com/auth
 ```
 
 # Access the service
