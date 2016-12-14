@@ -18,7 +18,7 @@ parameters:
   required: true
 - description: Git source URI for application
   name: SOURCE_REPOSITORY_URL
-  value: https://github.com/alesj/quick_rest_springboot-tomcat
+  value: https://github.com/obsidian-toaster-quickstarts/quick_secured_rest-springboot.git
   required: true
 - description: Git branch/tag reference
   name: SOURCE_REPOSITORY_REF
@@ -43,5 +43,5 @@ parameters:
     is the URL through which the user will be redirected when a login or token is
     required by the application.
   name: SSO_URL
-  value: https://secure-sso-springboot-rest.b795.dev-preview-stg.openshiftapps.com
+  value: https://secure-sso-sso.e8ca.engint.openshiftapps.com
   required: true
