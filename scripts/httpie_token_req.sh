@@ -1,12 +1,9 @@
 #!/usr/bin/env bash
 
-REALM=master
-USER=admin
-PASSWORD=admin
-CLIENT_ID=demoapp
-SECRET=cb7a8528-ad53-4b2e-afb8-72e9795c27c8
-SSO_HOST=${1:-https://secure-sso-sso.e8ca.engint.openshiftapps.com}
-APP=${2:-http://secured-springboot-rest-sso.e8ca.engint.openshiftapps.com}
+SCRIPT_DIR="$(dirname "$0")"
+echo $SCRIPT_DIR
+
+. $SCRIPT_DIR/common.sh
 
 echo ">>> HTTP Token query"
 echo "http --verify=no -f $SSO_HOST/auth/realms/$REALM/protocol/openid-connect/token username=$USER password=$PASSWORD client_secret=$SECRET grant_type=password client_id=$CLIENT_ID"
@@ -21,4 +18,4 @@ echo ">>> Greeting"
 http --verify=no GET $APP/greeting "Authorization: Bearer $access_token"
 
 echo ">>> Greeting Customized Message"
-http --verify=no GET $APP/greeting name==spring "Authorization: Bearer $access_token"
+http --verify=no GET $APP/greeting name==Spring "Authorization:Bearer $access_token"
