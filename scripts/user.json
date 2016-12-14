@@ -1,0 +1,22 @@
+{
+  "username": "bburke",
+  "enabled": true,
+  "email": " bburke@redhat.com",
+  "firstName": "Bill",
+  "lastName": "Burke",
+  "credentials": [
+    {
+      "type": "password",
+      "value": "password"
+    }
+  ],
+  "realmRoles": [
+    "user",
+    "offline_access"
+  ],
+  "clientRoles": {
+    "account": [
+      "manage-account"
+    ]
+  }
+}
