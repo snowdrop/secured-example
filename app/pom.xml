@@ -20,13 +20,13 @@
 
     <parent>
         <groupId>org.jboss.quickstart</groupId>
-        <artifactId>springboot-rest-parent</artifactId>
+        <artifactId>secured-springboot-rest-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>springboot-rest</artifactId>
+    <artifactId>secured-springboot-rest</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 

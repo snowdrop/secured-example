@@ -1,69 +1,9 @@
-apiVersion: v1
+---
 kind: DeploymentConfig
-metadata:
-  name: springboot-rest
 spec:
-  replicas: 1
-  selector:
-    project: springboot-rest
-    provider: fabric8
-    group: org.jboss.quickstart
-  strategy:
-    rollingParams:
-      timeoutSeconds: 10800
-    type: Rolling
   template:
-    metadata:
-      labels:
-        provider: fabric8
-        project: springboot-rest
-        version: 1.0-SNAPSHOT
-        group: org.jboss.quickstart
     spec:
       containers:
       - env:
-        - name: KUBERNETES_NAMESPACE
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.namespace
-        - name: JAVA_APP_DIR
-          value: /deployments
         - name: SSO_URL
-          value: https://secure-sso-sso.e8ca.engint.openshiftapps.com/auth
-        image: springboot-rest:latest
-        imagePullPolicy: IfNotPresent
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-            scheme: HTTP
-          initialDelaySeconds: 180
-        name: spring-boot
-        ports:
-        - containerPort: 8080
-          name: http
-          protocol: TCP
-        - containerPort: 9779
-          name: prometheus
-          protocol: TCP
-        - containerPort: 8778
-          name: jolokia
-          protocol: TCP
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-            scheme: HTTP
-          initialDelaySeconds: 10
-        securityContext:
-          privileged: false
-  triggers:
-  - type: ConfigChange
-  - imageChangeParams:
-      automatic: true
-      containerNames:
-      - spring-boot
-      from:
-        kind: ImageStreamTag
-        name: springboot-rest:latest
-    type: ImageChange
+          value: ${SSO_URL}

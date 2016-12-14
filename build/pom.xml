@@ -20,12 +20,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.jboss.quickstart</groupId>
-        <artifactId>springboot-rest-parent</artifactId>
+        <artifactId>secured-springboot-rest-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>springboot-rest-build</artifactId>
+    <artifactId>secured-springboot-rest-build</artifactId>
 
     <name>build</name>
     <description>Obsidian :: Quickstart :: Secured Spring Boot Tomcat - Rest [Build]</description>
@@ -33,7 +33,7 @@
     <dependencies>
         <dependency>
             <groupId>org.jboss.quickstart</groupId>
-            <artifactId>springboot-rest</artifactId>
+            <artifactId>secured-springboot-rest</artifactId>
         </dependency>
     </dependencies>
 
@@ -59,7 +59,7 @@
                 <dependencies>
                     <dependency>
                         <groupId>org.jboss.quickstart</groupId>
-                        <artifactId>springboot-rest</artifactId>
+                        <artifactId>secured-springboot-rest</artifactId>
                         <version>${project.version}</version>
                     </dependency>
                 </dependencies>

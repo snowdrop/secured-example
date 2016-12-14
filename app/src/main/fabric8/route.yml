@@ -2,4 +2,4 @@
 kind: Route
 spec:
   to:
-    name: "springboot-rest"
+    name: "secured-springboot-rest"
