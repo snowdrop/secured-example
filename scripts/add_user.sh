@@ -27,4 +27,4 @@ userId=$(http --verify=no --verbose GET $SSO_HOST/auth/admin/realms/$REALM/users
 echo "User id : $userId"
 
 echo ">>> Reset Password for the user"
-http --verify=no --verbose PUT $SSO_HOST/auth/admin/realms/$REALM/users/$userId/reset-password "Authorization: Bearer $access_token" < $SCRIPT_DIR/password.json
+http --verify=no --verbose PUT $SSO_HOST/auth/admin/realms/$REALM/users/$userId/reset-password id==$userId realm==$REALM "Authorization: Bearer $access_token" < $SCRIPT_DIR/password.json
