@@ -76,3 +76,5 @@ The URLs of the Red Hat SSO & Spring Boot Application are created according to t
 * Secured Spring Boot Application : <secured_springboot_route>.<namespace>.<host_machine>
 
 You can find such routes using a oc client command `oc get routes` or the Openshift Console.
+
+TODO - Explain how to configure the ENV VAR of the SSO_URL part of the DeploymentConfig
