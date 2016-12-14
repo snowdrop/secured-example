@@ -15,6 +15,7 @@ auth_result=$(http --verify=no -f $SSO_HOST/auth/realms/$REALM/protocol/openid-c
 access_token=$(echo -e "$auth_result" | awk -F"," '{print $1}' | awk -F":" '{print $2}' | sed s/\"//g | tr -d ' ')
 
 echo ">>> TOKEN Received"
+echo -e "$auth_result"
 echo $access_token
 
 echo ">>> Greeting"
