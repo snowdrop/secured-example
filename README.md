@@ -12,7 +12,7 @@ This project exposes a simple REST endpoint where the service `greeting` is avai
 
 The id of the message is incremented for each request. To customize the message, you can pass as parameter the name of the person that you want to send your greeting.
 
-# Build and test
+# Build
 
 The project is spilt into two modules - app and build.
 App module exposes simple SpringBoot REST endpoint. For this it bundles the Apache Tomcat 8.0.36 artifacts with SpringBoot 1.4.1.RELEASE.
@@ -21,9 +21,17 @@ Where build module contains OpenShift resources required to deploy RH-SSO along 
 To build the project, use this maven command.
 
 ```
-mvn fabric8:resource package fabric8:build -DskipTests
+mvn fabric8:resource fabric8:build package -DskipTests
 ```
 (atm, we exclude / ignore tests, as they hit RH-SSO which we don't have running as part of the tests)
+
+# Test
+
+To test locally the quickstart, install, configure & start a Red Hat SSO server. Next, pass as parameter the URL to access the SSO Server 
+
+```
+mvn test -Dsso.url=http://localhost:8080
+```
 
 # Launch / deploy
 
