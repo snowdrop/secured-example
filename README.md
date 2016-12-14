@@ -65,8 +65,8 @@ Depending which tool you prefer to use (curl or httpie), use one of bash files a
 the address of the Red Hat Secured SSO Server and the Secured Spring Boot Application. 
 
 ```
-./scripts/httpie_token_req.sh https://secure-sso-sso.e8ca.engint.openshiftapps.com http://springboot-rest-sso.e8ca.engint.openshiftapps.com
-./scripts/curl_token_req.sh https://secure-sso-sso.e8ca.engint.openshiftapps.com http://springboot-rest-sso.e8ca.engint.openshiftapps.com
+./scripts/httpie/token_req.sh https://secure-sso-sso.e8ca.engint.openshiftapps.com http://springboot-rest-sso.e8ca.engint.openshiftapps.com
+./scripts/curl/token_req.sh https://secure-sso-sso.e8ca.engint.openshiftapps.com http://springboot-rest-sso.e8ca.engint.openshiftapps.com
 ```
 
 The URLs of the Red Hat SSO & Spring Boot Application are created according to this convention:
@@ -75,6 +75,8 @@ The URLs of the Red Hat SSO & Spring Boot Application are created according to t
 * Secured Spring Boot Application : <secured_springboot_route>.<namespace>.<host_machine>
 
 You can find such routes using this oc client command `oc get routes` or the Openshift Console.
+
+# Access the service using a user without admin role
 
 # Test
 
