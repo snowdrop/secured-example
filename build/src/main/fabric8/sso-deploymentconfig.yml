@@ -8,7 +8,9 @@ metadata:
     component: server
 spec:
   strategy:
-    type: Recreate
+    rollingParams:
+      timeoutSeconds: 10800
+    type: Rolling
   replicas: 1
   selector:
     deploymentConfig: sso
