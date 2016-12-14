@@ -48,8 +48,9 @@ and the exact routes, to be used to access the app's greeting endpoint or to acc
 Note: until https://issues.jboss.org/browse/CLOUD-1166 is fixed,
 we need to fix the redirect-uri in RH-SSO admin console, to point to our app's route.
 
-To specify the Red Hat SSO URL to be used by the springBoot Application, it is required to change the SSO_URL env variable assigned to the deploymentConfig.
-You can change this value using the following oc command where the https server to be defined corresponds to the location of the Red Hat SSO Server.
+To specify the Red Hat SSO URL to be used by the springBoot Application, it is required to change the SSO_URL env variable assigned to the DeploymentConfig object.
+You can change this value using the following oc command where the https server to be defined corresponds to the location of the Red Hat SSO Server running 
+in OpenShift.
 
 ```
 oc env dc/springboot-rest SSO_URL=https://secure-sso-sso.e8ca.engint.openshiftapps.com1/auth
