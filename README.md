@@ -35,7 +35,7 @@ mvn clean install
 
 # Launch / deploy
 
-To deploy the whole secured app, first move to build/ dir, and then simply use the `Fabric8` Maven Plugin with the goal `run`:
+To deploy the whole secured app, first move to build/ dir, and then simply use the `Fabric8` Maven Plugin with the goals `deploy` and `start`:
 
 ```
 cd build
