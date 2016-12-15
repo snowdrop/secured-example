@@ -27,3 +27,19 @@ parameters:
   name: SSO_URL
   value: https://secure-sso-secured-springboot-rest.b795.dev-preview-stg.openshiftapps.com
   required: true
+- description: The RH-SSO realm to be used.
+  name: REALM
+  value: master
+  required: true
+- description: Realm's public key.
+  name: REALM_PUBLIC_KEY
+  value: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjoVg6150oqh7csrGMsttu7r+s4YBkYDkKrg2v6Gd5NhJw9NKnFlojPnLPoDSlxpNpN2sWegexcsFdDdmtuMzTxQ3hnkFWHDDXsyfj2fKQwDjgcxg95nRaaI+/OGhWbEsGdt/A5jxg2f4Vp4VLTwCj7Ujq4hVx67vO/zbJ2k0cD2uz5T731tvqweC7H/Os+G8B1+PpH5e1jGkDPZohe4ERCEdwNcC9IAt1tPr/LKfh+84hOkE3i9mGG/LGUiJShtw7ia2jXTMb1JErlJsLJOjh+guz6OztQOICN//+rRA4AACB//+IeJ8mr/jN/dww+RfYyeAd/SId56ae8H4SE4HQQIDAQAB
+  required: true
+- description: RH-SSO client id.
+  name: CLIENT_ID
+  value: demoapp
+  required: true
+- description: RH-SSO secret.
+  name: SECRET
+  value: cb7a8528-ad53-4b2e-afb8-72e9795c27c8
+  required: true

@@ -30,6 +30,14 @@ spec:
           value: /deployments
         - name: SSO_URL
           value: ${SSO_URL}
+        - name: REALM
+          value: ${REALM}
+        - name: REALM_PUBLIC_KEY
+          value: ${REALM_PUBLIC_KEY}
+        - name: CLIENT_ID
+          value: ${CLIENT_ID}
+        - name: SECRET
+          value: ${SECRET}
         image: secured-springboot-rest:latest
         imagePullPolicy: IfNotPresent
         livenessProbe:
