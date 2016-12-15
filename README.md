@@ -78,6 +78,32 @@ You can find such routes using this oc client command `oc get routes` or the Ope
 
 # Access the service using a user without admin role
 
+To secure the Spring Boot REST endpoint, different properties must be defined within the `app/src/main/resources/application.properties` file which contains
+such Keycloak parameters. 
+
+```
+keycloak.securityConstraints[0].securityCollections[0].name=admin stuff
+keycloak.securityConstraints[0].securityCollections[0].authRoles[0]=admin
+keycloak.securityConstraints[0].securityCollections[0].patterns[0]=/greeting
+```
+
+The patterns property defines as pattern, the `/greeting` endpoint which means that this endpoint is protected by Keycloak. Every other endpoint that is not explicitly listed is NOT secured by Keycloak and is publicly available.
+The authRoles property defines which Keycloak roles are allowed to access the defined endpoints. Typically, the default `admin` user which is used as the `admin` role and will be able to access the service.
+
+To verify that a user without the `admin` role can't access the service, you will create a new user using the following bash script
+
+```
+./scripts/curl/add_user.sh <SSO_HOST> <SpringBoot_HOST>
+./scripts/httpie/add_user.sh <SSO_HOST> <SpringBoot_HOST>
+```
+
+Next, you can call again the greeting endpoint by issuing a HTTP request where the username is `bburke` and the password `password`. In response, you will be notified that yoou can't access to the service
+
+```
+./scripts/curl/token_user_req.sh <SSO_HOST> <SpringBoot_HOST>
+./scripts/httpie/token_user_req.sh <SSO_HOST> <SpringBoot_HOST>
+```
+
 # Test
 
 (atm, we exclude / ignore tests, as they hit RH-SSO which we don't have running as part of the tests)
