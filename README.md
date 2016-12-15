@@ -13,7 +13,7 @@ the application issuing the call to the REST endpoint has been granted to access
 
 The id of the message is incremented for each request. To customize the message, you can pass as parameter the name of the person that you want to send your greeting.
 
-To manage the security, roles & permissions to access the service, a [Red Hat SSO backend](https://access.redhat.com/documentation/en/red-hat-single-sign-on/7.0/securing-applications-and-services-guide/securing-applications-and-services-guide) will be installed and configured for this project.
+To manage the security, roles & permissions to access the service, a [Red Hat SSO](https://access.redhat.com/documentation/en/red-hat-single-sign-on/7.0/securing-applications-and-services-guide/securing-applications-and-services-guide) backend will be installed and configured for this project.
 It relies on the Keycloak project which implements the `OpenId` connect specification which is an extension of the `Oauth2` protocol. 
 
 After a successful login, the application will receive an `identity token` and an `access token`. The identity token contains information about the user such as username, email, and other profile information.
