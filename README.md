@@ -1,6 +1,7 @@
 # Introduction
 
-This project exposes a simple Secured REST endpoint where the service `greeting` is available, but properly secured, at this address `http://hostname:port/greeting` and returns a json Greeting message after authentication
+This project exposes a simple REST endpoint where the service `greeting` is available, but properly secured, at this address `http://hostname:port/greeting` and returns a json Greeting message after
+the application issuing the call to the REST endpoint has been granted to access the service.
 
 ```
 {
@@ -12,7 +13,43 @@ This project exposes a simple Secured REST endpoint where the service `greeting`
 
 The id of the message is incremented for each request. To customize the message, you can pass as parameter the name of the person that you want to send your greeting.
 
-The project is spilt into two Apache Maven modules - `app` and `build`.
+To manage the security, roles & permissions to access the service, a [Red Hat SSO backend](https://access.redhat.com/documentation/en/red-hat-single-sign-on/7.0/securing-applications-and-services-guide/securing-applications-and-services-guide) will be installed and configured for this project.
+It relies on the Keycloak project which implements the `OpenId` connect specification which is an extension of the `Oauth2` protocol. 
+
+After a successful login, the application will receive an `identity token` and an `access token`. The identity token contains information about the user such as username, email, and other profile information.
+The access token is digitally signed by the realm and contains access information (like user role mappings)
+
+This is typically this `access token` formatted as a JSON Token that the Spring Boot application will use with its Keycloak adapter to determine what resources it is allowed to access on the application.
+The configuration of the adapter is defined within the `app/src/main/resources/application.properties` file using these properties:
+
+```
+keycloak.realm=REALM
+keycloak.realm-key=PUBLIC_KEY
+keycloak.auth-server-url=SSO_HOST
+keycloak.ssl-required=external
+keycloak.resource=CLIENT_APP
+keycloak.credentials.secret=CLIENT_SECRET
+keycloak.use-resource-role-mappings=false
+```
+
+The security context is managed by Red Hat SSO using a realm (defined usign the `keycloak.realm` property) where the adapter to establish a trusted TLS connection will use the Realm Public key defined
+using the `keycloak.realm-key` property. To access the server, the parameter `auth-server-url` is defined using the TLS address of the host followed with `/auth`.
+To manage different clients or applications, a resource has been created for the realm using the property `keycloak.resource`. This parameter, combined with the `keycloak.credentials.secret` property
+will be used during the authentication phase to login the application. If, it has been successfully granted, then a token will be issued that the application will use for the subsequent calls.
+
+The request which is issued to authenticate the application is
+
+```
+https://<SSO_HOST>/auth/realms/<REALM>/protocol/openid-connect/token?client_secret=<SECRET>&grant_type=password&client_id=CLIENT_APP
+```
+
+And the HTTP requests accessing the endpoint/Service will include the Bearer Token
+
+```
+http://<SpringBoot_App>/greeting -H "Authorization:Bearer <ACCESS_TOKEN>"
+```
+
+The project is split into two Apache Maven modules - `app` and `build`.
 The `App` module exposes the REST Service using as technology Spring Boot bundled with the Apache Tomcat 8.0.36 artifacts while the `build` module contains the OpenShift objects
 required to deploy the Red Hat SSO Server 7.0 along with the "app" module.
 
