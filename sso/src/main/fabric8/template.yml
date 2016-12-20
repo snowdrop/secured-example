@@ -26,7 +26,7 @@ parameters:
     is the URL through which the user will be redirected when a login or token is
     required by the application.
   name: SSO_URL
-  value: https://secure-sso-secured-sbr.b795.dev-preview-stg.openshiftapps.com
+  value: https://secure-sso-sbr.b795.dev-preview-stg.openshiftapps.com
   required: true
 - description: The SSO Client Secret for Confidential Access
   name: SSO_SECRET
@@ -107,7 +107,7 @@ parameters:
   name: IMAGE_STREAM_NAMESPACE
   value: openshift
   required: true
-# Temp -- for SpringBoot app
+# Temp -- for SpringBoot app (delete this once f8-m-p merge bug is fixed)
 - description: The name for the application.
   name: APPLICATION_NAME
   value: secured-springboot-rest

@@ -25,7 +25,7 @@ parameters:
     is the URL through which the user will be redirected when a login or token is
     required by the application.
   name: SSO_URL
-  value: https://secure-sso-secured-springboot-rest.b795.dev-preview-stg.openshiftapps.com
+  value: https://secure-sso-sbr.b795.dev-preview-stg.openshiftapps.com
   required: true
 - description: The RH-SSO realm to be used.
   name: REALM
