@@ -7,7 +7,7 @@ spec:
   selector:
     project: secured-springboot-rest
     provider: fabric8
-    group: org.jboss.quickstart
+    group: org.obsidiantoaster.quickstart
   strategy:
     rollingParams:
       timeoutSeconds: 10800
@@ -18,7 +18,7 @@ spec:
         provider: fabric8
         project: secured-springboot-rest
         version: 1.0-SNAPSHOT
-        group: org.jboss.quickstart
+        group: org.obsidiantoaster.quickstart
     spec:
       containers:
       - env:
