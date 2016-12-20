@@ -89,7 +89,7 @@ You must have the [OpenShift CLI tool](https://docs.openshift.com/online/cli_ref
 
     ```bash
     cd build
-    mvn fabric8:deploy fabric8:start
+    mvn fabric8:deploy
     ```
 
 1. Open the OpenShift web console to see the status of the app and the exact routes used to access the app's greeting endpoint, or to access the Red Hat SSO's admin console.
@@ -102,6 +102,10 @@ you must change the SSO_URL env variable assigned to the DeploymentConfig object
 
     ```
     oc env dc/secured-springboot-rest SSO_URL=https://secure-sso-sso.e8ca.engint.openshiftapps.com/auth
+    oc env dc/secured-springboot-rest REALM=master
+    oc env dc/secured-springboot-rest REALM_PUBLIC_KEY=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjoVg6150oqh7csrGMsttu7r+s4YBkYDkKrg2v6Gd5NhJw9NKnFlojPnLPoDSlxpNpN2sWegexcsFdDdmtuMzTxQ3hnkFWHDDXsyfj2fKQwDjgcxg95nRaaI+/OGhWbEsGdt/A5jxg2f4Vp4VLTwCj7Ujq4hVx67vO/zbJ2k0cD2uz5T731tvqweC7H/Os+G8B1+PpH5e1jGkDPZohe4ERCEdwNcC9IAt1tPr/LKfh+84hOkE3i9mGG/LGUiJShtw7ia2jXTMb1JErlJsLJOjh+guz6OztQOICN//+rRA4AACB//+IeJ8mr/jN/dww+RfYyeAd/SId56ae8H4SE4HQQIDAQAB
+    oc env dc/secured-springboot-rest CLIENT_ID=demoapp
+    oc env dc/secured-springboot-rest SECRET=cb7a8528-ad53-4b2e-afb8-72e9795c27c8
     ```
 
     Note: The HTTPS server corresponds to the location of the Red Hat SSO server running in OpenShift.
