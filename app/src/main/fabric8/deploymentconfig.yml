@@ -4,21 +4,11 @@ metadata:
   name: secured-springboot-rest
 spec:
   replicas: 1
-  selector:
-    project: secured-springboot-rest
-    provider: fabric8
-    group: org.obsidiantoaster.quickstart
   strategy:
     rollingParams:
       timeoutSeconds: 10800
     type: Rolling
   template:
-    metadata:
-      labels:
-        provider: fabric8
-        project: secured-springboot-rest
-        version: 1.0.0-SNAPSHOT
-        group: org.obsidiantoaster.quickstart
     spec:
       containers:
       - env:
