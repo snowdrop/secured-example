@@ -3,3 +3,5 @@
 *.ipr
 *.iws
 target/
+.project
+.settings

@@ -27,7 +27,7 @@
 
     <artifactId>secured-springboot-rest-build</artifactId>
 
-    <name>build</name>
+    <name>sso</name>
     <description>Obsidian :: Quickstart :: Secured Spring Boot Tomcat - Rest [Build]</description>
 
     <dependencies>
