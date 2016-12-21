@@ -111,15 +111,11 @@ In order to build and deploy this project, you must have an account on an OpenSh
 1. To specify the Red Hat SSO URL to be used by the Spring Boot application,
 you must change the SSO_URL env variable assigned to the DeploymentConfig object.
 
+    Note: You can retrieve the address of the SSO Server by issuing this command `oc get route/secure-sso` in a terminal and get the HOST/PORT name
+
     ```
     oc env dc/secured-springboot-rest SSO_URL=https://secure-sso-sso.e8ca.engint.openshiftapps.com/auth
-    oc env dc/secured-springboot-rest REALM=master
-    oc env dc/secured-springboot-rest REALM_PUBLIC_KEY=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjoVg6150oqh7csrGMsttu7r+s4YBkYDkKrg2v6Gd5NhJw9NKnFlojPnLPoDSlxpNpN2sWegexcsFdDdmtuMzTxQ3hnkFWHDDXsyfj2fKQwDjgcxg95nRaaI+/OGhWbEsGdt/A5jxg2f4Vp4VLTwCj7Ujq4hVx67vO/zbJ2k0cD2uz5T731tvqweC7H/Os+G8B1+PpH5e1jGkDPZohe4ERCEdwNcC9IAt1tPr/LKfh+84hOkE3i9mGG/LGUiJShtw7ia2jXTMb1JErlJsLJOjh+guz6OztQOICN//+rRA4AACB//+IeJ8mr/jN/dww+RfYyeAd/SId56ae8H4SE4HQQIDAQAB
-    oc env dc/secured-springboot-rest CLIENT_ID=demoapp
-    oc env dc/secured-springboot-rest SECRET=cb7a8528-ad53-4b2e-afb8-72e9795c27c8
     ```
-
-    Note: The HTTPS server corresponds to the location of the Red Hat SSO server running in OpenShift.
 
 # Access the service
 
