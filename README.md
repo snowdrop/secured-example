@@ -74,12 +74,12 @@ Name | Description | Version
 
 In order to build and deploy this project, you must have an account on an OpenShift Online (OSO): https://console.dev-preview-int.openshift.com/ instance.
 
-# Build the Project
+# OpenShift Online
 
 1. Using OpenShift Online or Dedicated, log on to the OpenShift Server.
 
     ```bash
-    oc login https://<OPENSHIFT_ADDRESS> --token=MYTOLEN` when you use OpenShift Online or Dedicated.
+    oc login https://<OPENSHIFT_ADDRESS> --token=MYTOKEN` when you use OpenShift Online or Dedicated.
     ```
 
 1. Create a new project on OpenShift.
