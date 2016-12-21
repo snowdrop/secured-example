@@ -12,6 +12,7 @@ access_token=$(echo -e "$auth_result" | awk -F"," '{print $1}' | awk -F":" '{pri
 
 #echo ">>> TOKEN Received"
 #echo -e "$auth_result"
+echo -e "$access_token"
 
 echo ">>> Greeting"
 http --verify=no GET $APP/greeting "Authorization: Bearer $access_token"
