@@ -126,5 +126,10 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
+  <scm>
+    <connection>scm:git:git://github.com/obsidian-toaster-quickstarts/quick_secured_rest-springboot.git</connection>
+    <developerConnection>scm:git:git@github.com:obsidian-toaster-quickstarts/quick_secured_rest-springboot.git</developerConnection>
+    <url>http://github.com/obsidian-toaster-quickstarts/quick_secured_rest-springboot</url>
+    <tag>HEAD</tag>
+  </scm>
 </project>
