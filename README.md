@@ -114,7 +114,7 @@ you must change the SSO_URL env variable assigned to the DeploymentConfig object
     Note: You can retrieve the address of the SSO Server by issuing this command `oc get route/secure-sso` in a terminal and get the HOST/PORT name
 
     ```
-    oc env dc/secured-springboot-rest SSO_URL=https://secure-sso-sso.e8ca.engint.openshiftapps.com/auth
+    oc env dc/secured-springboot-rest SSO_URL=https://secure-sso-sso.e8ca.engint.openshiftapps.com
     ```
 
 # Access the service
