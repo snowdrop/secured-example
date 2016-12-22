@@ -140,11 +140,6 @@
                         <artifactId>maven-surefire-plugin</artifactId>
                         <version>${maven-surefire-plugin.version}</version>
                         <inherited>true</inherited>
-                        <configuration>
-                            <excludes>
-                                <exclude>${test.to.exclude}</exclude>
-                            </excludes>
-                        </configuration>
                     </plugin>
                 </plugins>
             </build>

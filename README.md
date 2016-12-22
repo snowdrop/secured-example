@@ -91,12 +91,12 @@ In order to build and deploy this project, you must have an account on an OpenSh
 1. Build the quickstart.
 
     ```
-    mvn clean install
+    mvn clean install -Popenshift
     ```
 
 # Deploy the Application
 
-1. To deploy the whole secured app,move to `sso` folder, and then use the Fabric8 Maven Plugin with the goals deployand start:
+1. To deploy the whole secured app, move to `sso` folder, and then use the Fabric8 Maven Plugin with the goals deploy and start:
 
     ```bash
     cd sso
