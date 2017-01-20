@@ -63,9 +63,9 @@ To get started with these quickstarts you'll need the following prerequisites:
 Name | Description | Version
 --- | --- | ---
 [java][1] | Java JDK | 8
-[maven][2] | Apache Maven | 3.2.x 
+[maven][2] | Apache Maven | 3.2.x
 [oc][3] | OpenShift Client | v3.3.x
-[git][4] | Git version management | 2.x 
+[git][4] | Git version management | 2.x
 
 [1]: http://www.oracle.com/technetwork/java/javase/downloads/
 [2]: https://maven.apache.org/download.cgi?Preferred=ftp://mirror.reverse.net/pub/apache/
@@ -122,12 +122,10 @@ you must change the SSO_URL env variable assigned to the DeploymentConfig object
 If the pod of the Secured Spring Boot application is running like the Red Hat SSO Server,
 you can use one of the bash scripts proposed within the root of the project to access the service.
 
-Depending which tool you prefer to use (curl or httpie),
-use one of bash files available and pass as parameters the address of the Red Hat Secured SSO Server and the Secured Spring Boot application.
+Use the following script to perform a curl request and pass as parameters the address of the Red Hat Secured SSO Server and the Secured Spring Boot application.
 
 ```
-./scripts/httpie/token_req.sh https://secure-sso-sso.e8ca.engint.openshiftapps.com http://springboot-rest-sso.e8ca.engint.openshiftapps.com
-./scripts/curl/token_req.sh https://secure-sso-sso.e8ca.engint.openshiftapps.com http://springboot-rest-sso.e8ca.engint.openshiftapps.com
+./scripts/token_req.sh https://secure-sso-sso.e8ca.engint.openshiftapps.com http://springboot-rest-sso.e8ca.engint.openshiftapps.com
 ```
 
 The URLs of the Red Hat SSO and Spring Boot application are created according to this convention:
@@ -154,15 +152,13 @@ You can find such routes using this oc client command `oc get routes` or the Ope
 1. To verify that a user without the `admin` role cannot access the service, create a new user using the following bash script:
 
     ```
-    ./scripts/curl/add_user.sh <SSO_HOST> <SpringBoot_HOST>
-    ./scripts/httpie/add_user.sh <SSO_HOST> <SpringBoot_HOST>
+    ./scripts/add_user.sh <SSO_HOST> <SpringBoot_HOST>
     ```
 
 1. Call the greeting endpoint by issuing a HTTP request, where the username is `bburke` and the password password.
 
     ```
-    ./scripts/curl/token_user_req.sh <SSO_HOST> <SpringBoot_HOST>
-    ./scripts/httpie/token_user_req.sh <SSO_HOST> <SpringBoot_HOST>
+    ./scripts/token_user_req.sh <SSO_HOST> <SpringBoot_HOST>
     ```
 
     You will be notified that you cannot access the service.
