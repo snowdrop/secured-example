@@ -162,13 +162,3 @@ You can find such routes using this oc client command `oc get routes` or the Ope
     ```
 
     You will be notified that you cannot access the service.
-
-# Test the Quickstart Locally
-
-(atm, we exclude / ignore tests, as they hit RH-SSO which we don't have running as part of the tests)
-
-Install and start a Red Hat SSO server, using a parameter to access the SSO server.
-
-```
-mvn test -Dsso.url=http://localhost:8080 -Drealm=<realm> -Drealm.public.key=<public key> -Dclient.id=<client id> -Dsecret=<secret>
-```
