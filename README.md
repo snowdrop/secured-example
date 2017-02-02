@@ -50,9 +50,7 @@ And the HTTP requests accessing the endpoint/Service will include the following 
 http://<SpringBoot_App>/greeting -H "Authorization:Bearer <ACCESS_TOKEN>"
 ```
 
-The project is split into two Apache Maven modules - `app` and `sso`.
-The `App` module exposes the REST Service using Spring Boot bundled with the Apache Tomcat 8.0.36 artifacts.
-The `sso` module contains the OpenShift objects required to deploy the Red Hat SSO Server 7.0 along with the `app` module.
+The project exposes the REST Service using Spring Boot bundled with the Apache Tomcat 8.0.36 artifact and contains the OpenShift objects required to deploy the Red Hat SSO Server 7.0.
 
 The goal of this project is to deploy the quickstart in an OpenShift environment (online, dedicated, ...).
 
@@ -96,10 +94,9 @@ In order to build and deploy this project, you must have an account on an OpenSh
 
 # Deploy the Application
 
-1. To deploy the whole secured app, move to `sso` folder, and then use the Fabric8 Maven Plugin with the goals deploy and start:
+1. To deploy the whole secured app use the Fabric8 Maven Plugin with the goals deploy and start:
 
     ```bash
-    cd sso
     mvn fabric8:deploy -Popenshift
     ```
 
