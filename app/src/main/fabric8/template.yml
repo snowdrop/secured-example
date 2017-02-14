@@ -43,3 +43,23 @@ parameters:
   name: SECRET
   value: cb7a8528-ad53-4b2e-afb8-72e9795c27c8
   required: true
+- description: The name of the secret containing the keystore file
+  name: HTTPS_SECRET
+  value: sso-app-secret
+  required: false
+- description: The name of the keystore file within the secret
+  name: HTTPS_KEYSTORE
+  value: truststore.jks
+  required: false
+- description: The type of the keystore file (JKS or JCEKS)
+  name: HTTPS_KEYSTORE_TYPE
+  value: ''
+  required: false
+- description: The name associated with the server certificate (e.g. jboss)
+  name: HTTPS_NAME
+  value: jboss
+  required: false
+- description: The password for the keystore and certificate (e.g. mykeystorepass)
+  name: HTTPS_PASSWORD
+  value: mytruststorepass
+  required: false

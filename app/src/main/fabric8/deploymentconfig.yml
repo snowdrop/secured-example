@@ -16,6 +16,8 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
+        - name: JAVA_OPTIONS
+          value: "-Djavax.net.ssl.trustStore=/etc/app-secret-volume/${HTTPS_KEYSTORE} -Djavax.net.ssl.trustStorePassword=${HTTPS_PASSWORD}"
         - name: JAVA_APP_DIR
           value: /deployments
         - name: SSO_URL
@@ -28,8 +30,18 @@ spec:
           value: ${CLIENT_ID}
         - name: SECRET
           value: ${SECRET}
+        - name: HTTPS_NAME
+          value: ${HTTPS_NAME}
+        - name: HTTPS_PASSWORD
+          value: ${HTTPS_PASSWORD}
+        - name: HTTPS_KEYSTORE
+          value: ${HTTPS_KEYSTORE}
         image: secured-springboot-rest:latest
         imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: app-truststore-volume
+          mountPath: "/etc/app-secret-volume"
+          readOnly: true
         livenessProbe:
           httpGet:
             path: /health
@@ -55,6 +67,10 @@ spec:
           initialDelaySeconds: 10
         securityContext:
           privileged: false
+      volumes:
+      - name: app-truststore-volume
+        secret:
+          secretName: "${HTTPS_SECRET}"
   triggers:
   - type: ConfigChange
   - imageChangeParams:
