@@ -2,7 +2,7 @@
 
 SCRIPT_DIR="$(dirname "$0")"
 
-. $SCRIPT_DIR/../common.sh
+. $SCRIPT_DIR/common.sh
 
 #echo ">>> HTTP Token query"
 #echo "curl -sk -X POST $SSO_HOST/auth/realms/$REALM/protocol/openid-connect/token -d grant_type=password -d username=$USER -d client_secret=$SECRET -d password=$PASSWORD -d client_id=$CLIENT_ID"
