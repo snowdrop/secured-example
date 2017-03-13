@@ -50,10 +50,6 @@ And the HTTP requests accessing the endpoint/Service will include the following 
 http://<SpringBoot_App>/greeting -H "Authorization:Bearer <ACCESS_TOKEN>"
 ```
 
-The project is split into two Apache Maven modules - `app` and `sso`.
-The `App` module exposes the REST Service using Spring Boot bundled with the Apache Tomcat 8.0.36 artifacts.
-The `sso` module contains the OpenShift objects required to deploy the Red Hat SSO Server 7.0 along with the `app` module.
-
 The goal of this project is to deploy the quickstart in an OpenShift environment (online, dedicated, ...).
 
 # Prerequisites
@@ -79,13 +75,13 @@ In order to build and deploy this project, you must have an account on an OpenSh
 1. Using OpenShift Online or Dedicated, log on to the OpenShift Server.
 
     ```bash
-    oc login https://<OPENSHIFT_ADDRESS> --token=MYTOKEN` when you use OpenShift Online or Dedicated.
+    oc login https://<OPENSHIFT_ADDRESS> --token=MYTOKEN
     ```
 
 1. Create a new project on OpenShift.
 
     ```bash
-    oc new-project <some_project_name>` and next build the quickstart
+    oc new-project <some_project_name>
     ```
 
 1. Build the quickstart.
@@ -96,11 +92,12 @@ In order to build and deploy this project, you must have an account on an OpenSh
 
 # Deploy the Application
 
-1. To deploy the whole secured app, move to `sso` folder, and then use the Fabric8 Maven Plugin with the goals deploy and start:
+1. First, to deploy Red Hat SSO, clone the [redhat-sso](https://github.com/obsidian-toaster-quickstarts/redhat-sso) project
+and following the README.md instructions.
 
     ```bash
-    cd sso
-    mvn fabric8:deploy -Popenshift
+    cd redhat-sso
+    mvn fabric8:deploy
     ```
 
 1. Open the OpenShift web console to see the status of the app and the exact routes used to access the app's greeting endpoint, or to access the Red Hat SSO's admin console.
@@ -119,23 +116,15 @@ you must change the SSO_URL env variable assigned to the DeploymentConfig object
 
 # Access the service
 
-If the pod of the Secured Spring Boot application is running like the Red Hat SSO Server,
-you can use one of the bash scripts proposed within the root of the project to access the service.
+Use the rh-sso project scripts to access the secured endpoints.
 
-Use the following script to perform a curl request and pass as parameters the address of the Red Hat Secured SSO Server and the Secured Spring Boot application.
-
-```
-./scripts/token_req.sh https://secure-sso-sso.e8ca.engint.openshiftapps.com http://springboot-rest-sso.e8ca.engint.openshiftapps.com
-```
-
-The URLs of the Red Hat SSO and Spring Boot application are created according to this convention:
-
-* Red Hat Secured SSO : <secured_sso_route>.<namespace>.<host_machine>
-* Secured Spring Boot Application : <secured_springboot_route>.<namespace>.<host_machine>
-
-You can find such routes using this oc client command `oc get routes` or the Openshift Console.
+TODO:
+1. cd redhat-sso
+1. scripts/token_req.sh secured-swarm-rest
 
 # Access the service using a user without admin role
+
+TODO.
 
 1. To secure the Spring Boot REST endpoint, define the following properties in the `app/src/main/resources/application.properties` file, which contains the Keycloak parameters.
 

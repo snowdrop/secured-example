@@ -25,7 +25,7 @@ parameters:
     is the URL through which the user will be redirected when a login or token is
     required by the application.
   name: SSO_URL
-  value: https://secure-sso-sbr.e8ca.engint.openshiftapps.com
+  value: https://secure-sso-sso.e8ca.engint.openshiftapps.com
   required: true
 - description: The RH-SSO realm to be used.
   name: REALM
@@ -33,15 +33,15 @@ parameters:
   required: true
 - description: Realm's public key.
   name: REALM_PUBLIC_KEY
-  value: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAjoVg6150oqh7csrGMsttu7r+s4YBkYDkKrg2v6Gd5NhJw9NKnFlojPnLPoDSlxpNpN2sWegexcsFdDdmtuMzTxQ3hnkFWHDDXsyfj2fKQwDjgcxg95nRaaI+/OGhWbEsGdt/A5jxg2f4Vp4VLTwCj7Ujq4hVx67vO/zbJ2k0cD2uz5T731tvqweC7H/Os+G8B1+PpH5e1jGkDPZohe4ERCEdwNcC9IAt1tPr/LKfh+84hOkE3i9mGG/LGUiJShtw7ia2jXTMb1JErlJsLJOjh+guz6OztQOICN//+rRA4AACB//+IeJ8mr/jN/dww+RfYyeAd/SId56ae8H4SE4HQQIDAQAB
+  value: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoETnPmN55xBJjRzN/cs30OzJ9olkteLVNRjzdTxFOyRtS2ovDfzdhhO9XzUcTMbIsCOAZtSt8K+6yvBXypOSYvI75EUdypmkcK1KoptqY5KEBQ1KwhWuP7IWQ0fshUwD6jI1QWDfGxfM/h34FvEn/0tJ71xN2P8TI2YanwuDZgosdobx/PAvlGREBGuk4BgmexTOkAdnFxIUQcCkiEZ2C41uCrxiS4CEe5OX91aK9HKZV4ZJX6vnqMHmdDnsMdO+UFtxOBYZio+a1jP4W3d7J5fGeiOaXjQCOpivKnP2yU2DPdWmDMyVb67l8DRA+jh0OJFKZ5H2fNgE3II59vdsRwIDAQAB
   required: true
 - description: RH-SSO client id.
   name: CLIENT_ID
-  value: demoapp
+  value: secured-springboot-endpoint
   required: true
 - description: RH-SSO secret.
   name: SECRET
-  value: cb7a8528-ad53-4b2e-afb8-72e9795c27c8
+  value: bb851e16-832b-40e0-807d-0f9fe3c06622
   required: true
 - description: The name of the secret containing the keystore file
   name: HTTPS_SECRET
