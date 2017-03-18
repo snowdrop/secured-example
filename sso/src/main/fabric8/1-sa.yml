@@ -1,7 +1,0 @@
----
-kind: ServiceAccount
-apiVersion: v1
-metadata:
-  name: sso-service-account
-secrets:
-- name: sso-app-secret

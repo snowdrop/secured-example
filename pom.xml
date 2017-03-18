@@ -37,7 +37,8 @@
 
         <fabric8.version>2.2.205</fabric8.version>
         <springboot.version>1.4.1.RELEASE</springboot.version>
-        <tomcat.version>8.5.6</tomcat.version>
+        <!-- https://issues.jboss.org/browse/KEYCLOAK-3669 -->
+        <tomcat.version>8.5.4</tomcat.version>
         <keycloak.version>1.9.8.Final</keycloak.version>
 
         <fabric8.maven.plugin.version>3.1.92</fabric8.maven.plugin.version>
@@ -46,7 +47,6 @@
 
     <modules>
         <module>app</module>
-        <module>sso</module>
     </modules>
 
     <build>
