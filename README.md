@@ -1,7 +1,8 @@
 # Introduction
 
-This project exposes a simple REST endpoint where the service `greeting` is available, but properly secured, at this address http://hostname:port/greeting
-and returns a json Greeting message after the application issuing the call to the REST endpoint has been granted to access the service.
+This project exposes a simple REST endpoint where the service `greeting` is available, but properly secured, at this address
+http://hostname:port/greeting and returns a json Greeting message after the application issuing the call to the REST endpoint
+has been granted to access the service.
 
 ```json
 {
@@ -10,7 +11,8 @@ and returns a json Greeting message after the application issuing the call to th
 }
 ```
 
-The id of the message is incremented for each request. To customize the message, you can pass as parameter the name of the person that you want to send your greeting.
+The id of the message is incremented for each request. To customize the message, you can pass as parameter the name of the
+person that you want to send your greeting.
 
 To manage the security, roles & permissions to access the service, a [Red Hat SSO](https://access.redhat.com/documentation/en/red-hat-single-sign-on/7.0/securing-applications-and-services-guide/securing-applications-and-services-guide) backend will be installed and configured for this project.
 It relies on the Keycloak project which implements the OpenId connect specification which is an extension of the Oauth2 protocol.
@@ -22,35 +24,30 @@ The access token is digitally signed by the realm and contains access informatio
 This `access token` is typically formatted as a JSON Token that the Spring Boot application will use with its Keycloak adapter to determine what resources it is allowed to access on the application.
 The configuration of the adapter is defined within the `app/src/main/resources/application.properties` file using these properties:
 
-```
-keycloak.realm=REALM
-keycloak.realm-key=PUBLIC_KEY
-keycloak.auth-server-url=SSO_HOST
+```properties
+keycloak.realm=${realm}
+keycloak.realm-key=${realm.public.key}
+keycloak.auth-server-url=${sso.auth.server.url}
 keycloak.ssl-required=external
-keycloak.resource=CLIENT_APP
-keycloak.credentials.secret=CLIENT_SECRET
-keycloak.use-resource-role-mappings=false
+keycloak.resource=${client.id}
+keycloak.credentials.secret=${secret}
+keycloak.use-resource-role-mappings=true
 ```
 
-The security context is managed by Red Hat SSO using a realm (defined using the keycloak.realm property) where the adapter to establish a trusted TLS connection will use the Realm Public key defined using the `keycloak.realm-key` property.
+The security context is managed by Red Hat SSO using a realm (defined using the keycloak.realm property) where the adapter to
+establish a trusted TLS connection will use the Realm Public key defined using the `keycloak.realm-key` property.
 To access the server, the parameter `auth-server-url` is defined using the TLS address of the host followed with `/auth`.
 To manage different clients or applications, a resource has been created for the realm using the property `keycloak.resource`.
 This parameter, combined with the `keycloak.credentials.secret` property, will be used during the authentication phase to log in the application.
 If, it has been successfully granted, then a token will be issued that the application will use for the subsequent calls.
 
-The request that is issued to authenticate the application is:
+The project is split into two Apache Maven modules - `app` and `sso`.
+The `App` module exposes the REST Service using WildflySwarm.
+The `sso` module is a submodule link to the [redhat-sso](https://github.com/obsidian-toaster-quickstarts/redhat-sso) project
+ that contains the OpenShift objects required to deploy the Red Hat SSO Server 7.0 as well as a Java command line client
+ driver to access this secured endpoint.
 
-```
-https://<SSO_HOST>/auth/realms/<REALM>/protocol/openid-connect/token?client_secret=<SECRET>&grant_type=password&client_id=CLIENT_APP
-```
-
-And the HTTP requests accessing the endpoint/Service will include the following Bearer Token:
-
-```
-http://<SpringBoot_App>/greeting -H "Authorization:Bearer <ACCESS_TOKEN>"
-```
-
-The goal of this project is to deploy the quickstart in an OpenShift environment (online, dedicated, ...).
+The goal of this project is to deploy the quickstart in an OpenShift environment (online, dedicated, minishift, ...).
 
 # Prerequisites
 
@@ -68,86 +65,52 @@ Name | Description | Version
 [3]: https://docs.openshift.com/enterprise/3.2/cli_reference/get_started_cli.html
 [4]: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
 
-In order to build and deploy this project, you must have an account on an OpenShift Online (OSO): https://console.dev-preview-int.openshift.com/ instance.
+The first time you clone this secured_rest-springboot project, you need to initialize the sso submodule. You can do this by
+either:
+  1. using `git clone --recursive https://github.com/obsidian-toaster-quickstarts/secured_rest-springboot`
 
-# OpenShift Online
+or
 
-1. Using OpenShift Online or Dedicated, log on to the OpenShift Server.
+  1. using `git clone https://github.com/obsidian-toaster-quickstarts/secured_rest-springboot`
+  1. `cd sso`
+  1. `git submodule init`
+  1. `git submodule update`
 
-    ```bash
-    oc login https://<OPENSHIFT_ADDRESS> --token=MYTOKEN
-    ```
+# Setting up OpenShift and the RH SSO Server
 
-1. Create a new project on OpenShift.
+If you have not done so already, open up the sso/README.adoc or view it online [here](https://github.com/obsidian-toaster-quickstarts/redhat-sso/blob/master/README.adoc)
+and follow the OpenShift Online section to setup your OpenShift environment and deploy the RH SSO server.
 
-    ```bash
-    oc new-project <some_project_name>
-    ```
+Make note of the SSO_AUTH_SERVER_URL value you received after deploying the RH SSO server. If you missed that step, return
+to https://github.com/obsidian-toaster-quickstarts/redhat-sso/blob/master/README.adoc#determine-the-sso_auth_server_url-value
+section and follow the instruction to obtain it.
 
-1. Build the quickstart.
+# Build and deploy the Application
 
-    ```
-    mvn clean install -Popenshift
-    ```
-
-# Deploy the Application
-
-1. First, to deploy Red Hat SSO, clone the [redhat-sso](https://github.com/obsidian-toaster-quickstarts/redhat-sso) project
-and following the README.md instructions.
-
-    ```bash
-    cd redhat-sso
-    mvn fabric8:deploy
-    ```
-
-1. Open the OpenShift web console to see the status of the app and the exact routes used to access the app's greeting endpoint, or to access the Red Hat SSO's admin console.
-
-    Note: until [CLOUD-1166](https://issues.jboss.org/browse/CLOUD-1166) is fixed,
-    we need to fix the redirect-uri in RH-SSO admin console, to point to our app's route.
-
-1. To specify the Red Hat SSO URL to be used by the Spring Boot application,
-you must change the SSO_URL env variable assigned to the DeploymentConfig object.
-
-    Note: You can retrieve the address of the SSO Server by issuing this command `oc get route/secure-sso` in a terminal and get the HOST/PORT name
+The WildFly Swarm application needs to be packaged and deployed. This process will generate the uber jar file, the OpenShift resources
+and deploy them within the namespace of the OpenShift Server. Make sure you pass in the SSO_AUTH_SERVER_URL you
+obtained during the deployment of the RH SSO server.
 
     ```
-    oc env dc/secured-springboot-rest SSO_URL=https://secure-sso-sso.e8ca.engint.openshiftapps.com/auth
+    cd app
+    mvn fabric8:deploy -DSSO_AUTH_SERVER_URL=<SSO_AUTH_SERVER_URL from above...> -Popenshift -DskipTests=true
     ```
+# Access the Secured Endpoints
 
-# Access the service
+Return to the sso/README.adoc or view it online [here](https://github.com/obsidian-toaster-quickstarts/redhat-sso/blob/master/README.adoc)
+and continue at the "Access the Secured Endpoints" section.
 
-Use the rh-sso project scripts to access the secured endpoints.
+## Example output
 
-TODO:
-1. cd redhat-sso
-1. scripts/token_req.sh secured-swarm-rest
+```bash
+[sso 803]$ java -jar target/sso-client.jar --app secured-springboot-rest
+Successful oc get routes: Yes
+Using auth server URL: https://secure-sso-sso.e8ca.engint.openshiftapps.com/auth
+Available application endpoint names: [secured-vertx-rest, secured-swarm-rest, secured-springboot-rest]
 
-# Access the service using a user without admin role
-
-TODO.
-
-1. To secure the Spring Boot REST endpoint, define the following properties in the `app/src/main/resources/application.properties` file, which contains the Keycloak parameters.
-
-    ```
-    keycloak.securityConstraints[0].securityCollections[0].name=admin stuff
-    keycloak.securityConstraints[0].securityCollections[0].authRoles[0]=admin
-    keycloak.securityConstraints[0].securityCollections[0].patterns[0]=/greeting
-    ```
-    The pattern’s property defines as pattern, the `/greeting` endpoint which means that this endpoint is protected by Keycloak.
-    Every other endpoint that is not explicitly listed is NOT secured by Keycloak and is publicly available.
-    The authRoles property defines which Keycloak roles are allowed to access the defined endpoints.
-    Typically, the default admin user which is used as the admin role and will be able to access the service.
-
-1. To verify that a user without the `admin` role cannot access the service, create a new user using the following bash script:
-
-    ```
-    ./scripts/add_user.sh <SSO_HOST> <SpringBoot_HOST>
-    ```
-
-1. Call the greeting endpoint by issuing a HTTP request, where the username is `bburke` and the password password.
-
-    ```
-    ./scripts/token_user_req.sh <SSO_HOST> <SpringBoot_HOST>
-    ```
-
-    You will be notified that you cannot access the service.
+Requesting greeting...
+{
+  "id" : 2,
+  "content" : "Hello, World!"
+}
+```

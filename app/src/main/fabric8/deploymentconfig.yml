@@ -20,8 +20,8 @@ spec:
           value: "-Djavax.net.ssl.trustStore=/etc/app-secret-volume/${HTTPS_KEYSTORE} -Djavax.net.ssl.trustStorePassword=${HTTPS_PASSWORD}"
         - name: JAVA_APP_DIR
           value: /deployments
-        - name: SSO_URL
-          value: ${SSO_URL}/auth
+        - name: SSO_AUTH_SERVER_URL
+          value: ${SSO_AUTH_SERVER_URL}
         - name: REALM
           value: ${REALM}
         - name: REALM_PUBLIC_KEY
