@@ -93,7 +93,7 @@ obtained during the deployment of the RH SSO server.
 
     ```
     cd app
-    mvn fabric8:deploy -DSSO_AUTH_SERVER_URL=<SSO_AUTH_SERVER_URL from above...> -Popenshift -DskipTests=true
+    mvn fabric8:deploy -Popenshift -DSSO_AUTH_SERVER_URL=<SSO_AUTH_SERVER_URL from above...> -Popenshift -DskipTests=true
     ```
 # Access the Secured Endpoints
 
