@@ -42,7 +42,7 @@ This parameter, combined with the `keycloak.credentials.secret` property, will b
 If, it has been successfully granted, then a token will be issued that the application will use for the subsequent calls.
 
 The project is split into two Apache Maven modules - `app` and `sso`.
-The `App` module exposes the REST Service using WildflySwarm.
+The `App` module exposes the REST Service using Spring Boot.
 The `sso` module is a submodule link to the [redhat-sso](https://github.com/obsidian-toaster-quickstarts/redhat-sso) project
  that contains the OpenShift objects required to deploy the Red Hat SSO Server 7.0 as well as a Java command line client
  driver to access this secured endpoint.
@@ -87,7 +87,7 @@ section and follow the instruction to obtain it.
 
 # Build and deploy the Application
 
-The WildFly Swarm application needs to be packaged and deployed. This process will generate the uber jar file, the OpenShift resources
+The Spring Boot application needs to be packaged and deployed. This process will generate the uber jar file, the OpenShift resources
 and deploy them within the namespace of the OpenShift Server. Make sure you pass in the SSO_AUTH_SERVER_URL you
 obtained during the deployment of the RH SSO server.
 
