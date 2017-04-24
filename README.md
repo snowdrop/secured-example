@@ -1,1 +1,1 @@
-http://openshiftio-appdev-docs-appdev-documentation.tsrv.devshift.net/mission-secured-spring-boot.html
+http://appdev.openshift.io/mission-secured-spring-boot.html
