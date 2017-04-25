@@ -1,4 +1,3 @@
-
 # Checking out the Repository
 To properly clone this repository, use the --recursive option to clone so that the sso submodule is checked out fully:
 
@@ -18,4 +17,4 @@ Submodule path 'sso': checked out 'cd9fbf0980a3930ca7da1f1814a040bf5b032e96'
 
 # Full Booster Experience Docs
 
-http://openshiftio-appdev-docs-appdev-documentation.tsrv.devshift.net/mission-secured-spring-boot.html
+http://appdev.openshift.io/mission-secured-spring-boot.html
