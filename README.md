@@ -17,4 +17,4 @@ Submodule path 'sso': checked out 'cd9fbf0980a3930ca7da1f1814a040bf5b032e96'
 
 # Full Booster Experience Docs
 
-<http://appdev.openshift.io/docs/mission-secured-spring-boot.html>
+<http://appdev-stage.openshift.io/docs/spring-boot-runtime.html#mission-secured-spring-boot>
