@@ -20,7 +20,7 @@
     <parent>
       <groupId>io.openshift</groupId>
       <artifactId>booster-parent</artifactId>
-      <version>4</version>
+      <version>6</version>
     </parent>
 
     <groupId>io.openshift.booster</groupId>
@@ -33,9 +33,7 @@
 
     <properties>
         <springboot.version>1.4.1.RELEASE</springboot.version>
-        <!-- https://issues.jboss.org/browse/KEYCLOAK-3669 -->
-        <tomcat.version>8.5.4</tomcat.version>
-        <keycloak.version>1.9.8.Final</keycloak.version>
+        <spring-boot.bom.version>1</spring-boot.bom.version>
     </properties>
 
     <modules>
@@ -57,45 +55,17 @@
     <dependencyManagement>
         <dependencies>
             <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-starter-parent</artifactId>
-                <version>${springboot.version}</version>
+                <groupId>org.jboss.snowdrop</groupId>
+                <artifactId>spring-boot-1.4-bom</artifactId>
+                <version>${spring-boot.bom.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <dependency>
-                <groupId>org.keycloak</groupId>
-                <artifactId>keycloak-adapters-pom</artifactId>
-                <version>${keycloak.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <!-- This -->
+
             <dependency>
                 <groupId>io.openshift.booster</groupId>
                 <artifactId>secured-springboot-rest</artifactId>
                 <version>${project.version}</version>
-            </dependency>
-            <!-- Tomcat -->
-            <dependency>
-                <groupId>org.apache.tomcat.embed</groupId>
-                <artifactId>tomcat-embed-core</artifactId>
-                <version>${tomcat.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.tomcat.embed</groupId>
-                <artifactId>tomcat-embed-el</artifactId>
-                <version>${tomcat.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.tomcat.embed</groupId>
-                <artifactId>tomcat-embed-websocket</artifactId>
-                <version>${tomcat.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.tomcat</groupId>
-                <artifactId>tomcat-juli</artifactId>
-                <version>${tomcat.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
