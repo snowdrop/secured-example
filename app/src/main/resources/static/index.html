@@ -76,7 +76,7 @@
         var url = '//' + window.location.host;
         var n = $("#name").val() || "World";
         url += (url.charAt(url.length - 1) === '/' ? '' : '/') +
-            'api/greeting?name=' + n;
+            'greeting?name=' + n;
 
         $.ajax({
             beforeSend: function (request) {
