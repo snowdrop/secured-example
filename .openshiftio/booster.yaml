@@ -1,1 +1,7 @@
-name: Secured Spring Boot Tomcat - HTTP & Red Hat SSO
+name: Secured Spring Boot - HTTP & Red Hat SSO Example
+description: A booster demonstrating how to set up a simple, secured with Red Hat SSO, REST webservice with Spring Boot on OpenShift
+versions:
+- id: community
+ name: Community Runtime
+- id: redhat
+ name: Red Hat Productized Runtime
