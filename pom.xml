@@ -35,15 +35,7 @@
         <springboot.version>1.5.7.RELEASE</springboot.version>
         <spring-boot.bom.version>1.5.7-SNAPSHOT</spring-boot.bom.version>
     </properties>
-
-    <repositories>
-        <repository>
-            <id>redhat-thirdparty</id>
-            <name>RedHat Thirdparty Repository</name>
-            <url>https://repository.jboss.org/nexus/service/local/repositories/thirdparty-releases/content</url>
-        </repository>
-    </repositories>
-
+    
     <modules>
         <module>app</module>
     </modules>
