@@ -71,11 +71,11 @@
           });
         }
 
-        $(document).ready(() => {
-           $("#invoke").click((e) => {
+        $(document).ready(function () {
+           $("#invoke").click(function (e) {
             e.preventDefault();
               //invokeAPI();
-              const n = $("#name").val() || "World";
+              const name = $("#name").val() || "World";
               let nameParam = '';
               if (!(name === null || name === undefined || name === '')) {
                 nameParam = '?name=' + encodeURIComponent(name);
@@ -86,13 +86,13 @@
                 url: url,
                 type: 'GET',
                 dataType: 'json',
-                beforeSend: (xhr) => {
+                beforeSend: function (xhr) {
                   xhr.setRequestHeader('Accept', 'application/json');
                   xhr.setRequestHeader('Authorization', 'Bearer ' + keycloak.token);
                 }
-              }).success((res) => {
+              }).success(function (res) {
                 $('#result').html(JSON.stringify(res));
-              }).error((req) => {
+              }).error(function (req) {
                 alert('Invocation failed!\n  cause: [' + req.status + '] ' + req.statusText);
               });
               return false;
