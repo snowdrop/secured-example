@@ -30,7 +30,7 @@ public class GreetingController {
     private GreetingProperties properties;
     private final AtomicLong counter = new AtomicLong();
 
-    @RequestMapping("/greeting")
+    @RequestMapping("/api/greeting")
     public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
         return new Greeting(counter.incrementAndGet(), String.format(properties.getMessage(), name));
     }
