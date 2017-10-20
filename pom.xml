@@ -32,8 +32,8 @@
     <description>Secured Spring Boot Tomcat - Rest &amp; Red Hat SSO</description>
 
     <properties>
-        <springboot.version>1.5.7.RELEASE</springboot.version>
-        <spring-boot.bom.version>1.5.7-SNAPSHOT</spring-boot.bom.version>
+        <springboot.version>1.5.8.RELEASE</springboot.version>
+        <spring-boot.bom.version>1.5.8-SNAPSHOT</spring-boot.bom.version>
     </properties>
     
     <modules>
