@@ -29,11 +29,7 @@
 
     <name>rest</name>
     <description>Secured Spring Boot Tomcat - Rest</description>
-
-    <properties>
-        <overriden-oc-k8s-clients.version>1.4.34</overriden-oc-k8s-clients.version>
-    </properties>
-
+    
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -147,18 +143,6 @@
                     </plugin>
                 </plugins>
             </build>
-            <dependencies>
-                <dependency>
-                    <groupId>io.fabric8</groupId>
-                    <artifactId>kubernetes-client</artifactId>
-                    <version>${overriden-oc-k8s-clients.version}</version>
-                </dependency>
-                <dependency>
-                    <groupId>io.fabric8</groupId>
-                    <artifactId>openshift-client</artifactId>
-                    <version>${overriden-oc-k8s-clients.version}</version>
-                </dependency>
-            </dependencies>
         </profile>
     </profiles>
 </project>
