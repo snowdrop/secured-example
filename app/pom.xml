@@ -31,7 +31,7 @@
     <description>Secured Spring Boot Tomcat - Rest</description>
 
     <properties>
-        <resteasy.version>3.0.19.Final</resteasy.version>
+        <overriden-oc-k8s-clients.version>1.4.34</overriden-oc-k8s-clients.version>
     </properties>
 
     <dependencies>
@@ -51,24 +51,6 @@
         </dependency>
         
         <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-jaxb-provider</artifactId>
-            <version>${resteasy.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-client</artifactId>
-            <version>${resteasy.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jboss.resteasy</groupId>
-            <artifactId>resteasy-jackson2-provider</artifactId>
-            <version>${resteasy.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.keycloak</groupId>
             <artifactId>keycloak-authz-client</artifactId>
             <version>2.5.5.Final</version>
@@ -78,12 +60,6 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>javax.ws.rs-api</artifactId>
-            <version>2.0.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -170,10 +146,12 @@
                 <dependency>
                     <groupId>io.fabric8</groupId>
                     <artifactId>kubernetes-client</artifactId>
+                    <version>${overriden-oc-k8s-clients.version}</version>
                 </dependency>
                 <dependency>
                     <groupId>io.fabric8</groupId>
                     <artifactId>openshift-client</artifactId>
+                    <version>${overriden-oc-k8s-clients.version}</version>
                 </dependency>
             </dependencies>
         </profile>
