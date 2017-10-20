@@ -37,7 +37,7 @@ parameters:
   required: true
 - description: RH-SSO client id.
   name: CLIENT_ID
-  value: secured-springboot-endpoint
+  value: secured-booster-endpoint
   required: true
 - description: RH-SSO secret.
   name: SECRET
