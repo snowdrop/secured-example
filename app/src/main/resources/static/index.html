@@ -64,7 +64,7 @@
             if (keycloak.authenticated) {
                 // update UI to show the current user
                 $('#user').text(keycloak.tokenParsed.preferred_username);
-                $('#curl').text('curl -H "Authorization: Bearer ' + keycloak.token + '" http://' + window.location.host + '/greeting');
+                $('#curl').text('curl -H "Authorization: Bearer ' + keycloak.token + '" http://' + window.location.host + '/api/greeting');
             } else {
                 // update UI to show the current user
                 $('#user').html('<i>Unauthenticated</i>');
@@ -85,7 +85,7 @@
                 nameParam = '?name=' + encodeURIComponent(name);
             }
             // create a AJAX call
-            const url = '//' + window.location.host + '/greeting' + nameParam;
+            const url = '//' + window.location.host + '/api/greeting' + nameParam;
             $.ajax({
                 url: url,
                 type: 'GET',
