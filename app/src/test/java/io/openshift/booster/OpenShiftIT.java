@@ -52,7 +52,7 @@ import static org.assertj.core.api.Assertions.fail;
 /**
  * @author Heiko Braun
  */
-public class OpenshiftIT {
+public class OpenShiftIT {
     private static final OpenShiftTestAssistant openshift = new OpenShiftTestAssistant();
 
     private static AuthzClient authzClient;
