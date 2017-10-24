@@ -156,7 +156,7 @@ public class OpenShiftIT {
                 .setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)
                 .build();
 
-        System.setProperty("sso.auth.server.url", ssoAuthUrl);
+        System.setProperty("SSO_AUTH_SERVER_URL", ssoAuthUrl);
         Configuration baseline = JsonSerialization.readValue(
                 configStream,
                 Configuration.class,

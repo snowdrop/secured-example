@@ -8,12 +8,12 @@ oc create -f service.sso.yaml
 
 - Get Keycloak Auth Endpoint
 ```
-oc get route/secure-sso -o template --template={{.spec.host}})
+SSO_URL=$(oc get route secure-sso -o jsonpath='https://{.spec.host}/auth')
 ```
 
 - Start Spring Boot using Keycloak Auth address
 ```
-mvn spring-boot:run -Dsso.auth.server.url=https://secure-sso-sso.192.168.64.5.nip.io/auth -DSSO_AUTH_SERVER_URL=https://secure-sso-sso.192.168.64.5.nip.io/auth
+mvn spring-boot:run -DSSO_AUTH_SERVER_URL=${SSO_URL}
 ```
 
 - Use curl to access the endpoint without authentication
