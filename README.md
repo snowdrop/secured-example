@@ -18,7 +18,7 @@ mvn spring-boot:run -DSSO_AUTH_SERVER_URL=${SSO_URL}
 
 - Use curl to access the endpoint without authentication
 ```
-curl http://localhost/api/greeting
+curl http://localhost:8080/api/greeting
 {"timestamp":1508772409753,"status":401,"error":"Unauthorized","message":"No message available","path":"/api/greeting"}
 ```
 
