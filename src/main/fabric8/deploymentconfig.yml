@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: DeploymentConfig
 metadata:
-  name: secured-springboot-rest
+  name: ${project.artifactId}
 spec:
   replicas: 1
   strategy:
@@ -16,68 +16,22 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.namespace
-        - name: JAVA_OPTIONS
-          value: "-Djavax.net.ssl.trustStore=/etc/app-secret-volume/${HTTPS_KEYSTORE} -Djavax.net.ssl.trustStorePassword=${HTTPS_PASSWORD}"
         - name: JAVA_APP_DIR
           value: /deployments
         - name: SSO_AUTH_SERVER_URL
           value: ${SSO_AUTH_SERVER_URL}
-        - name: REALM
-          value: ${REALM}
-        - name: REALM_PUBLIC_KEY
-          value: ${REALM_PUBLIC_KEY}
-        - name: CLIENT_ID
-          value: ${CLIENT_ID}
-        - name: SECRET
-          value: ${SECRET}
-        - name: HTTPS_NAME
-          value: ${HTTPS_NAME}
-        - name: HTTPS_PASSWORD
-          value: ${HTTPS_PASSWORD}
-        - name: HTTPS_KEYSTORE
-          value: ${HTTPS_KEYSTORE}
-        image: secured-springboot-rest:latest
+        name: ${project.artifactId}
+        image: ${project.artifactId}:latest
         imagePullPolicy: IfNotPresent
-        volumeMounts:
-        - name: app-truststore-volume
-          mountPath: "/etc/app-secret-volume"
-          readOnly: true
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-            scheme: HTTP
-          initialDelaySeconds: 180
-        name: secured-springboot-rest
-        ports:
-        - containerPort: 8080
-          name: http
-          protocol: TCP
-        - containerPort: 9779
-          name: prometheus
-          protocol: TCP
-        - containerPort: 8778
-          name: jolokia
-          protocol: TCP
-        readinessProbe:
-          httpGet:
-            path: /health
-            port: 8080
-            scheme: HTTP
-          initialDelaySeconds: 10
         securityContext:
           privileged: false
-      volumes:
-      - name: app-truststore-volume
-        secret:
-          secretName: "${HTTPS_SECRET}"
   triggers:
   - type: ConfigChange
   - imageChangeParams:
       automatic: true
       containerNames:
-      - secured-springboot-rest
+      - ${project.artifactId}
       from:
         kind: ImageStreamTag
-        name: secured-springboot-rest:latest
+        name: ${project.artifactId}:latest
     type: ImageChange

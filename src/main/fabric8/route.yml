@@ -1,5 +1,4 @@
----
 kind: Route
 spec:
   to:
-    name: "secured-springboot-rest"
+    name: ${project.artifactId}
