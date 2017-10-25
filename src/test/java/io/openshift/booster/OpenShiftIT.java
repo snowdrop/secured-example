@@ -16,133 +16,103 @@
 
 package io.openshift.booster;
 
+import static com.jayway.restassured.RestAssured.given;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
+import static org.hamcrest.core.Is.is;
+
 import java.io.InputStream;
-import java.net.URI;
-import java.util.concurrent.TimeUnit;
+import java.net.URL;
 
 import javax.net.ssl.SSLContext;
 
-import com.jayway.restassured.response.Response;
-import io.fabric8.openshift.api.model.Route;
-import io.openshift.booster.test.OpenShiftTestAssistant;
+import com.jayway.restassured.response.ValidatableResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContexts;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+import org.arquillian.cube.openshift.impl.enricher.RouteURL;
+import org.jboss.arquillian.junit.Arquillian;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.keycloak.authorization.client.AuthzClient;
 import org.keycloak.authorization.client.Configuration;
 import org.keycloak.authorization.client.util.HttpResponseException;
 import org.keycloak.representations.AccessTokenResponse;
 import org.keycloak.util.JsonSerialization;
 
-import static com.jayway.awaitility.Awaitility.await;
-import static com.jayway.restassured.RestAssured.get;
-import static com.jayway.restassured.RestAssured.given;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
-import static org.hamcrest.core.Is.is;
-
 /**
  * @author Heiko Braun
+ * @author Ales Justin
  */
+@RunWith(Arquillian.class)
 public class OpenShiftIT {
-    private static final OpenShiftTestAssistant openshift = new OpenShiftTestAssistant();
 
-    private static AuthzClient authzClient;
+    @RouteURL("secure-sso")
+    private URL ssoUrlBase;
 
-    private static String applicationUrl;
+    @RouteURL("secured-springboot-rest")
+    private URL applicationUrl;
 
-    @BeforeClass
-    public static void setup() throws Exception {
-        Route ssoServerRoute = requireRoute("secure-sso");
-        String ssoAuthUrl = "https://" + ssoServerRoute.getSpec().getHost() + "/auth";
-        authzClient = createAuthzClient(ssoAuthUrl);
+    private AuthzClient authzClient;
 
-        openshift.deployApplication();
-
-        // wait until the pods & routes become available
-        openshift.awaitApplicationReadinessOrFail();
-
-        await().atMost(5, TimeUnit.MINUTES).until(() -> {
-            try {
-                Response response = get();
-                return response.getStatusCode() == 200;
-            } catch (Exception e) {
-                return false;
-            }
-        });
-
-        Route applicationRoute = requireRoute("secured-springboot-rest");
-        applicationUrl = "http://" + applicationRoute.getSpec().getHost();
+    private AuthzClient getAuthzClient() throws Exception {
+        if (authzClient == null) {
+            authzClient = createAuthzClient();
+        }
+        return authzClient;
     }
 
-    @AfterClass
-    public static void teardown() throws Exception {
-        openshift.cleanup();
-    }
+    private void verifyGreeting(int statusCode, String token, String from) {
+        String url = applicationUrl.toString() + "api/greeting" + (from != null ? "?name=" + from : "");
 
-    private static void verifyGreeting(String token, String from) {
-        given().header("Authorization", "Bearer " + token)
-                .get(URI.create(applicationUrl))
-                .then()
-                .statusCode(200)
-                .body("content", is(String.format("Hello, %s!", from)));
-    }
+        ValidatableResponse response = given().header("Authorization", "Bearer " + token)
+        .get(url)
+        .then()
+        .statusCode(statusCode);
 
-    @Test
-    public void defaultUser_defaultFrom() {
-        AccessTokenResponse accessTokenResponse = authzClient.obtainAccessToken("alice", "password");
-
-        verifyGreeting(accessTokenResponse.getToken(), null);
-    }
-
-    @Test
-    public void defaultUser_customFrom() {
-        AccessTokenResponse accessTokenResponse = authzClient.obtainAccessToken("alice", "password");
-
-        verifyGreeting(accessTokenResponse.getToken(), "Scott");
-    }
-
-    // This test checks the "authenticated, but not authorized" flow.
-    @Test
-    public void adminUser() {
-        AccessTokenResponse accessTokenResponse = authzClient.obtainAccessToken("admin", "admin");
-
-        try {
-            verifyGreeting(accessTokenResponse.getToken(), null);
-            fail("403 Forbidden expected");
-        } catch (Exception e) {
-            // todo: properly handle
-//            assertThat(e.getResponse().getStatus()).isEqualTo(403);
+        if (statusCode == 200) {
+            response.body("content", is(String.format("Hello, %s!", from != null ? from : "World")));
         }
     }
 
     @Test
-    public void badPassword() {
+    public void defaultUser_defaultFrom() throws Exception {
+        AccessTokenResponse accessTokenResponse = getAuthzClient().obtainAccessToken("alice", "password");
+
+        verifyGreeting(200, accessTokenResponse.getToken(), null);
+    }
+
+    @Test
+    public void defaultUser_customFrom() throws Exception {
+        AccessTokenResponse accessTokenResponse = getAuthzClient().obtainAccessToken("alice", "password");
+
+        verifyGreeting(200, accessTokenResponse.getToken(), "Scott");
+    }
+
+    // This test checks the "authenticated, but not authorized" flow.
+    @Test
+    public void adminUser() throws Exception {
+        AccessTokenResponse accessTokenResponse = getAuthzClient().obtainAccessToken("admin", "admin");
+
+        verifyGreeting(403, accessTokenResponse.getToken(), null);
+    }
+
+    @Test
+    public void badPassword() throws Exception {
         try {
-            authzClient.obtainAccessToken("alice", "bad");
+            getAuthzClient().obtainAccessToken("alice", "bad");
             fail("401 Unauthorized expected");
         } catch (HttpResponseException t) {
             assertThat(t.getStatusCode()).isEqualTo(401);
         }
     }
 
-    private static Route requireRoute(String name) {
-        Route route = openshift.client().routes().inNamespace(openshift.project()).withName(name).get();
-        if (route == null) {
-            throw new IllegalStateException("Couldn't find route " + name);
-        }
-        return route;
-    }
-
     /**
      * We need a simplified setup that allows us to work with self-signed certificates.
      * To support this we need to provide a custom http client.
      */
-    private static AuthzClient createAuthzClient(String ssoAuthUrl) throws Exception {
+    private AuthzClient createAuthzClient() throws Exception {
         InputStream configStream = Thread.currentThread().getContextClassLoader().getResourceAsStream("keycloak.json");
         if (configStream == null) {
             throw new IllegalStateException("Could not find any keycloak.json file in classpath.");
@@ -156,7 +126,11 @@ public class OpenShiftIT {
                 .setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)
                 .build();
 
-        System.setProperty("SSO_AUTH_SERVER_URL", ssoAuthUrl);
+        // the injected @RouteURL always contains a port number, which means the URL is different from SSO_AUTH_SERVER_URL,
+        // and that causes failures during token validation
+        String ssoUrl = ssoUrlBase.toString().replace(":443", "") + "auth";
+
+        System.setProperty("SSO_AUTH_SERVER_URL", ssoUrl);
         Configuration baseline = JsonSerialization.readValue(
                 configStream,
                 Configuration.class,
