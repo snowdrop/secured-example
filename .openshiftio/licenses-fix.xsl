@@ -69,7 +69,7 @@
           <xsl:with-param name="url" select="$eclipse_v1_url"/>
         </xsl:call-template>
       </xsl:when>
-      <xsl:when test="contains(translate(., $uppercase, $lowercase), 'www.gnu.org/licenses/old-licenses/lgpl-2.1')">
+      <xsl:when test="contains(translate(., $uppercase, $lowercase), 'lgpl-2.1')">
         <xsl:call-template name="license">
           <xsl:with-param name="name" select="$lgpl_v21_name"/>
           <xsl:with-param name="url" select="$lgpl_v21_url"/>
@@ -88,6 +88,12 @@
         </xsl:call-template>
       </xsl:when>
       <xsl:when test="contains(translate(., $uppercase, $lowercase), 'www.opensource.org/licenses/mit-license')">
+        <xsl:call-template name="license">
+          <xsl:with-param name="name" select="$mit_name"/>
+          <xsl:with-param name="url" select="$mit_url"/>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="contains(translate(., $uppercase, $lowercase), 'jsoup.com/license')">
         <xsl:call-template name="license">
           <xsl:with-param name="name" select="$mit_name"/>
           <xsl:with-param name="url" select="$mit_url"/>
