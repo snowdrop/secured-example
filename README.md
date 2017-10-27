@@ -1,5 +1,7 @@
 # How to play with the SSO Booster locally
 
+NOTE: `service.sso.yaml` and `.openshiftio/service.sso.yaml` must be always kept in sync.
+
 - Deploy Keycloak on Openshift
 ```
 oc new-project sso
