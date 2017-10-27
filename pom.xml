@@ -34,7 +34,6 @@
         <springboot.version>1.5.8.RELEASE</springboot.version>
         <spring-boot.bom.version>1.5.8-SNAPSHOT</spring-boot.bom.version>
         <arquillian.version>1.1.13.Final</arquillian.version>
-        <arquillian.cube.version>1.9.1</arquillian.cube.version>
     </properties>
     
     <build>
@@ -92,27 +91,6 @@
               <version>${arquillian.version}</version>
               <type>pom</type>
               <scope>import</scope>
-            </dependency>
-
-            <dependency>
-              <groupId>org.arquillian.cube</groupId>
-              <artifactId>arquillian-cube-bom</artifactId>
-              <version>${arquillian.cube.version}</version>
-              <type>pom</type>
-              <scope>import</scope>
-            </dependency>
-
-            <dependency>
-              <groupId>io.openshift</groupId>
-              <artifactId>openshift-test-utils</artifactId>
-              <version>${booster-common.version}</version>
-              <scope>test</scope>
-              <exclusions>
-                <exclusion>
-                  <groupId>io.fabric8</groupId>
-                  <artifactId>openshift-client</artifactId>
-                </exclusion>
-              </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>
