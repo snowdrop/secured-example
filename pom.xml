@@ -25,7 +25,7 @@
 
     <groupId>io.openshift.booster</groupId>
     <artifactId>secured-springboot-rest</artifactId>
-    <version>5-SNAPSHOT</version>
+    <version>5</version>
 
     <name>parent</name>
     <description>Secured Spring Boot Tomcat - Rest &amp; Red Hat SSO</description>
