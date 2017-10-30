@@ -29,6 +29,9 @@
   <xsl:variable name="cc0_name" select="'Creative Commons Zero v1.0 Universal'"/>
   <xsl:variable name="cc0_url" select="'http://creativecommons.org/publicdomain/zero/1.0/legalcode'"/>
 
+  <xsl:variable name="cddl_10_name" select="'Common Development and Distribution License'"/>
+  <xsl:variable name="cddl_10_url" select="'http://repository.jboss.org/licenses/cddl.txt'"/>
+
   <xsl:template match="@*|node()">
     <xsl:copy>
       <xsl:apply-templates select="@*|node()"/>
@@ -103,6 +106,12 @@
         <xsl:call-template name="license">
           <xsl:with-param name="name" select="$cc0_name"/>
           <xsl:with-param name="url" select="$cc0_url"/>
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="contains(translate(., $uppercase, $lowercase), 'cddlv1.0')">
+        <xsl:call-template name="license">
+          <xsl:with-param name="name" select="$cddl_10_name"/>
+          <xsl:with-param name="url" select="$cddl_10_url"/>
         </xsl:call-template>
       </xsl:when>
       <!-- If nothing matches, leave original values -->
