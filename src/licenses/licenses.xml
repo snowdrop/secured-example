@@ -367,8 +367,8 @@
       <version>1.0</version>
       <licenses>
         <license>
-          <name>COMMON DEVELOPMENT AND DISTRIBUTION LICENSE (CDDL) Version 1.0</name>
-          <url>https://glassfish.dev.java.net/public/CDDLv1.0.html</url>
+          <name>Common Development and Distribution License</name>
+          <url>http://repository.jboss.org/licenses/cddl.txt</url>
         </license>
       </licenses>
     </dependency>
