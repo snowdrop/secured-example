@@ -1,3 +1,0 @@
-[submodule "sso"]
-	path = sso
-	url = https://github.com/obsidian-toaster-quickstarts/redhat-sso
