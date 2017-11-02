@@ -24,11 +24,11 @@
     </parent>
 
     <groupId>io.openshift.booster</groupId>
-    <artifactId>secured-springboot-rest</artifactId>
+    <artifactId>spring-boot-rest-http-secured</artifactId>
     <version>2-redhat-SNAPSHOT</version>
 
-    <name>parent</name>
-    <description>Secured Spring Boot Tomcat - Rest &amp; Red Hat SSO</description>
+    <name>Spring Boot - Secured HTTP Booster</name>
+    <description>Spring Boot - Secured HTTP Booster</description>
 
     <properties>
         <springboot.version>1.5.8.RELEASE</springboot.version>
