@@ -16,11 +16,6 @@
 
 package io.openshift.booster;
 
-import static com.jayway.restassured.RestAssured.given;
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.fail;
-import static org.hamcrest.core.Is.is;
-
 import java.io.InputStream;
 import java.net.URL;
 
@@ -41,6 +36,11 @@ import org.keycloak.authorization.client.util.HttpResponseException;
 import org.keycloak.representations.AccessTokenResponse;
 import org.keycloak.util.JsonSerialization;
 
+import static com.jayway.restassured.RestAssured.given;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.fail;
+import static org.hamcrest.core.Is.is;
+
 /**
  * @author Heiko Braun
  * @author Ales Justin
@@ -51,7 +51,7 @@ public class OpenShiftIT {
     @RouteURL("secure-sso")
     private URL ssoUrlBase;
 
-    @RouteURL("secured-springboot-rest")
+    @RouteURL("spring-boot-rest-http-secured") // this route needs to match the artifact id, see route.yml
     private URL applicationUrl;
 
     private AuthzClient authzClient;
@@ -67,9 +67,9 @@ public class OpenShiftIT {
         String url = applicationUrl.toString() + "api/greeting" + (from != null ? "?name=" + from : "");
 
         ValidatableResponse response = given().header("Authorization", "Bearer " + token)
-        .get(url)
-        .then()
-        .statusCode(statusCode);
+                .get(url)
+                .then()
+                .statusCode(statusCode);
 
         if (statusCode == 200) {
             response.body("content", is(String.format("Hello, %s!", from != null ? from : "World")));
