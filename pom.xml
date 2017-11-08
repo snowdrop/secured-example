@@ -25,7 +25,7 @@
 
     <groupId>io.openshift.booster</groupId>
     <artifactId>spring-boot-rest-http-secured</artifactId>
-    <version>3-redhat-SNAPSHOT</version>
+    <version>3-redhat</version>
 
     <name>Spring Boot - Secured HTTP Booster</name>
     <description>Spring Boot - Secured HTTP Booster</description>
