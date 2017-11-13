@@ -51,7 +51,7 @@ public class OpenShiftIT {
     @RouteURL("secure-sso")
     private URL ssoUrlBase;
 
-    @RouteURL("spring-boot-rest-http-secured") // this route needs to match the artifact id, see route.yml
+    @RouteURL("${service.route}")
     private URL applicationUrl;
 
     private AuthzClient authzClient;
