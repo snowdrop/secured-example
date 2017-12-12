@@ -51,7 +51,7 @@ public class OpenShiftIT {
     @RouteURL("secure-sso")
     private URL ssoUrlBase;
 
-    @RouteURL("${service.route}")
+    @RouteURL("${app.name}")
     private URL applicationUrl;
 
     private AuthzClient authzClient;
