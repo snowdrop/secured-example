@@ -30,9 +30,7 @@
   <name>Spring Boot - Secured HTTP Booster</name>
   <description>Spring Boot - Secured HTTP Booster</description>
 
-  <properties>
-    
-  </properties>
+  
 
   <build>
     <plugins>
