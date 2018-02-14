@@ -30,6 +30,10 @@
   <name>Spring Boot - Secured HTTP Booster</name>
   <description>Spring Boot - Secured HTTP Booster</description>
 
+  <properties>
+    <fabric8-maven-plugin.version>3.5.30</fabric8-maven-plugin.version>
+  </properties>
+
   <build>
     <plugins>
       <plugin>
