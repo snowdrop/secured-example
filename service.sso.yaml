@@ -89,6 +89,9 @@ items:
           - name: sso-truststore-volume
             mountPath: "/etc/sso-secret-volume"
             readOnly: true
+          # see https://issues.jboss.org/browse/CLOUD-2195
+          - name: workaround-for-cloud-2195
+            mountPath: /opt/eap/standalone/configuration/standalone_xml_history
           livenessProbe:
             exec:
               command:
@@ -154,6 +157,9 @@ items:
         - name: sso-truststore-volume
           secret:
             secretName: "sso-app-secret"
+        # see https://issues.jboss.org/browse/CLOUD-2195
+        - name: workaround-for-cloud-2195
+          emptyDir: {}
     triggers:
     - type: ConfigChange
 - apiVersion: v1
