@@ -97,7 +97,7 @@
             }).success(function (res) {
                 $('#result').html(JSON.stringify(res));
             }).error(function (req) {
-                alert('Invocation failed!\n  cause: [' + req.status + '] ' + req.statusText);
+                alert('Invocation failed!\n  cause: [' + req.status + '] ' + req.responseJSON.error);
             });
             return false;
         });
