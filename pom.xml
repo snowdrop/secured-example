@@ -30,7 +30,7 @@
   <name>Spring Boot - Secured HTTP Booster</name>
   <description>Spring Boot - Secured HTTP Booster</description>
 
-  
+
 
   <build>
     <resources>
@@ -56,6 +56,10 @@
           </classpathDependencyExcludes>
         </configuration>
       </plugin>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>       
     </plugins>
     <pluginManagement>
       <plugins>
