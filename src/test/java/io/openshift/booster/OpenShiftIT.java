@@ -141,8 +141,8 @@ public class OpenShiftIT {
                 new Configuration(
                         baseline.getAuthServerUrl(),
                         baseline.getRealm(),
-                        baseline.getClientId(),
-                        baseline.getClientCredentials(),
+                        baseline.getResource(),
+                        baseline.getCredentials(),
                         httpClient
                 )
         );

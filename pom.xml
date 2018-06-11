@@ -98,7 +98,7 @@
   <properties>
     <arquillian.version>1.4.0.Final</arquillian.version>
     <junit.version>4.12</junit.version>
-    <spring-boot-bom.version>1.5.13.Final</spring-boot-bom.version>
+    <spring-boot-bom.version>1.5.13.SP1-SNAPSHOT</spring-boot-bom.version>
     <spring-boot.version>1.5.13.RELEASE</spring-boot.version>
     <awaitility.version>1.7.0</awaitility.version>
     <rest-assured.version>2.9.0</rest-assured.version>
@@ -151,21 +151,9 @@
     <!-- Keycloak -->
     <dependency>
       <groupId>org.keycloak</groupId>
-      <artifactId>keycloak-adapter-spi</artifactId>
+      <artifactId>keycloak-spring-boot-starter</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.keycloak</groupId>
-      <artifactId>keycloak-tomcat8-adapter</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.keycloak</groupId>
-      <artifactId>keycloak-spring-boot-adapter</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.keycloak</groupId>
-      <artifactId>keycloak-authz-client</artifactId>
-    </dependency>
-
+    
     <!-- Testing -->
     <dependency>
       <groupId>org.jboss.arquillian.junit</groupId>
@@ -181,6 +169,10 @@
         <exclusion>
           <groupId>io.undertow</groupId>
           <artifactId>undertow-core</artifactId>
+        </exclusion>
+        <exclusion>
+          <groupId>org.apache.httpcomponents</groupId>
+          <artifactId>httpclient-osgi</artifactId>
         </exclusion>
       </exclusions>
     </dependency>
