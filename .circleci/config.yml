@@ -53,8 +53,16 @@ jobs:
       - run:
           name: echo vars
           command: |
-            git config --get remote.origin.url
-            git rev-parse --abbrev-ref HEAD
+            if [ -z "$CIRCLE_PR_REPONAME" ]; then
+              SOURCE_REPOSITORY_URL="https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}"
+              SOURCE_REPOSITORY_REF=${CIRCLE_BRANCH}
+            else
+              SOURCE_REPOSITORY_URL="https://github.com/${CIRCLE_PR_USERNAME}/${CIRCLE_PR_REPONAME}"
+              SOURCE_REPOSITORY_REF=${CIRCLE_SHA1}
+            fi
+
+            echo "SOURCE_REPOSITORY_URL = ${SOURCE_REPOSITORY_URL}"
+            echo "SOURCE_REPOSITORY_REF = ${SOURCE_REPOSITORY_REF}"
 
 workflows:
   version: 2
@@ -64,3 +72,4 @@ workflows:
           filters:
             branches:
               ignore: redhat
+h
