@@ -38,7 +38,7 @@ jobs:
           key: spring-boot-http-secured-booster
 
       # Will download all deps needed into .m2
-      - run: ./mvnw dependency:go-offline
+      - run: ./mvnw -s .circleci/settings.xml dependency:go-offline
 
 
       - save_cache:
@@ -49,7 +49,7 @@ jobs:
       - run:
           command: |
             oc apply -f service.sso.yaml
-            ./mvnw clean verify -Popenshift,openshift-it -DSSO_AUTH_SERVER_URL=$(oc get route secure-sso -o jsonpath='https://{.spec.host}/auth')
+            ./mvnw -s .circleci/settings.xml clean verify -Popenshift,openshift-it -DSSO_AUTH_SERVER_URL=$(oc get route secure-sso -o jsonpath='https://{.spec.host}/auth')
           no_output_timeout: 3600
 
 
