@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/snowdrop/spring-boot-http-secured-booster.svg?style=svg)](https://circleci.com/gh/snowdrop/spring-boot-http-secured-booster)
+[![CircleCI](https://circleci.com/gh/snowdrop/spring-boot-http-secured-booster.svg?style=shield)](https://circleci.com/gh/snowdrop/spring-boot-http-secured-booster)
 
 # How to play with the SSO Booster locally
 
