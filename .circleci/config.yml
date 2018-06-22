@@ -48,8 +48,8 @@ jobs:
 
       - run:
           command: |
-            oc apply -f service.sso.yaml
-            ./mvnw -s .circleci/settings.xml clean verify -Popenshift,openshift-it -DSSO_AUTH_SERVER_URL=$(oc get route secure-sso -o jsonpath='https://{.spec.host}/auth')
+            oc new-project fmp
+            .circleci/run_tests_with_fmp.sh -s .circleci/settings.xml
           no_output_timeout: 3600
 
 
