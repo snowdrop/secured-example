@@ -83,3 +83,5 @@ workflows:
               ignore:
               - /.*redhat.*/
               - /.*rh.*/
+              - /temp-community/
+              - /temp-prod/              
