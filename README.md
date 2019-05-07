@@ -1,6 +1,6 @@
-[![CircleCI](https://circleci.com/gh/snowdrop/spring-boot-http-secured-booster.svg?style=shield)](https://circleci.com/gh/snowdrop/spring-boot-http-secured-booster)
+[![CircleCI](https://circleci.com/gh/snowdrop/secured-example.svg?style=shield)](https://circleci.com/gh/snowdrop/secured-example)
 
-# How to play with the SSO Booster locally
+# How to play with the SSO Example locally
 
 NOTE: `service.sso.yaml` and `.openshiftio/service.sso.yaml` must be always kept in sync.
 

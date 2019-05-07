@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package io.openshiftio.booster.service;
+package dev.snowdrop.example.service;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
