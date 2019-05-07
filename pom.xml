@@ -22,11 +22,11 @@
     <artifactId>booster-parent</artifactId>
     <version>23</version>
   </parent>
-  <groupId>io.openshift.booster</groupId>
-  <artifactId>spring-boot-rest-http-secured</artifactId>
+  <groupId>dev.snowdrop.example</groupId>
+  <artifactId>rest-secured</artifactId>
   <version>1.5.19-3-SNAPSHOT</version>
-  <name>Spring Boot - Secured HTTP Booster</name>
-  <description>Spring Boot - Secured HTTP Booster</description>
+  <name>Spring Boot - Secured HTTP Example</name>
+  <description>Spring Boot - Secured HTTP Example</description>
   <properties>
     <arquillian.version>1.4.0.Final</arquillian.version>
     <awaitility.version>3.1.0</awaitility.version>

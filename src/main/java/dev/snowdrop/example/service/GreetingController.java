@@ -14,28 +14,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.openshiftio.booster.service;
+package dev.snowdrop.example.service;
 
-public class Greeting {
+import java.util.concurrent.atomic.AtomicLong;
 
-    private final long id;
-    private final String content;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-    public Greeting() {
-        this.id = 0;
-        this.content = null;
-    }
+@RestController
+public class GreetingController {
 
-    public Greeting(long id, String content) {
-        this.id = id;
-        this.content = content;
-    }
+    @Autowired
+    private GreetingProperties properties;
+    private final AtomicLong counter = new AtomicLong();
 
-    public long getId() {
-        return id;
-    }
-
-    public String getContent() {
-        return content;
+    @RequestMapping("/api/greeting")
+    public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
+        return new Greeting(counter.incrementAndGet(), String.format(properties.getMessage(), name));
     }
 }
