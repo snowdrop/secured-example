@@ -74,7 +74,7 @@ items:
         terminationGracePeriodSeconds: 30
         containers:
         - name: sso
-          image: registry.access.redhat.com/redhat-sso-7/sso73-openshift
+          image: registry.access.redhat.com/redhat-sso-7/sso72-openshift
           imagePullPolicy: Always
           volumeMounts:
           - name: sso-demo-volume
