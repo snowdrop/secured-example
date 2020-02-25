@@ -266,6 +266,46 @@
                 </goals>
               </execution>
             </executions>
+            <configuration>
+              <resources>
+                <labels>
+                  <all>
+                    <property>
+                      <name>app.kubernetes.io/part-of</name>
+                      <value>secured-http-example</value>
+                    </property>
+                    <property>
+                      <name>app.kubernetes.io/name</name>
+                      <value>secured-http-service</value>
+                    </property>
+                    <property>
+                      <name>app.kubernetes.io/component</name>
+                      <value>frontend</value>
+                    </property>
+                    <property>
+                      <name>app.kubernetes.io/runtime</name>
+                      <value>spring-boot</value>
+                    </property>
+                    <property>
+                      <name>app.kubernetes.io/runtime-version</name>
+                      <value>${spring-boot.version}</value>
+                    </property>
+                  </all>
+                </labels>
+                <annotations>
+                  <all>
+                    <property>
+                      <name>app.kubernetes.io/vcs-uri</name>
+                      <value>git@github.com:snowdrop/secured-example.git</value>
+                    </property>
+                    <property>
+                      <name>app.kubernetes.io/connects-to</name>
+                      <value>secured-sso</value>
+                    </property>
+                  </all>
+                </annotations>
+              </resources>
+            </configuration>
           </plugin>
         </plugins>
       </build>

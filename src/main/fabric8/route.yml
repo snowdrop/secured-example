@@ -1,0 +1,16 @@
+metadata:
+  annotations:
+    app.kubernetes.io/vcs-uri: git@github.com:snowdrop/secured-example.git
+    app.kubernetes.io/connects-to: secured-sso
+  labels:
+    app.kubernetes.io/part-of: secured-http-example
+    app.kubernetes.io/name: secured-http-service
+    app.kubernetes.io/component: frontend
+    app.kubernetes.io/runtime: spring-boot
+    app.kubernetes.io/runtime-version: ${spring-boot.version}
+spec:
+  port:
+    targetPort: 8080
+  to:
+    kind: Service
+    name: ${project.artifactId}
