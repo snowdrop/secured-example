@@ -24,6 +24,7 @@ import javax.net.ssl.SSLContext;
 import io.restassured.response.ValidatableResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
+import org.apache.http.conn.ssl.TrustSelfSignedStrategy;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.ssl.SSLContexts;
 import org.arquillian.cube.openshift.impl.enricher.RouteURL;
@@ -41,10 +42,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 import static org.hamcrest.core.Is.is;
 
-/**
- * @author Heiko Braun
- * @author Ales Justin
- */
 @RunWith(Arquillian.class)
 public class OpenShiftIT {
 
@@ -119,7 +116,7 @@ public class OpenShiftIT {
         }
 
         SSLContext sslContext = SSLContexts.custom()
-                .loadTrustMaterial((chain, authType) -> true)
+                .loadTrustMaterial(new TrustSelfSignedStrategy())
                 .build();
         HttpClient httpClient = HttpClients.custom()
                 .setSSLContext(sslContext)

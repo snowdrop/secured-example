@@ -2,6 +2,7 @@
   "realm": "master",
   "auth-server-url" : "${SSO_AUTH_SERVER_URL}",
   "no-check-certificate": true,
+  "disable-trust-manager": true,
   "resource" : "demoapp",
   "enable-cors": true,
   "credentials": {
