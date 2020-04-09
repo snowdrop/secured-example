@@ -16,9 +16,12 @@
  */
 package dev.snowdrop.example;
 
+import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Import;
 
+@Import(KeycloakSpringBootConfigResolver.class) // Workaround for https://issues.redhat.com/browse/KEYCLOAK-11282
 @SpringBootApplication
 public class RestApplication {
 
