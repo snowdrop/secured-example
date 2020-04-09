@@ -45,7 +45,7 @@ import static org.hamcrest.core.Is.is;
 @RunWith(Arquillian.class)
 public class OpenShiftIT {
 
-    @RouteURL("sso")
+    @RouteURL("secure-sso")
     private URL ssoUrlBase;
 
     @RouteURL("${app.name}")

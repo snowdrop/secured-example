@@ -12,7 +12,7 @@ oc create -f service.sso.yaml
 
 - Get Keycloak Auth Endpoint
 ```
-SSO_URL=$(oc get route sso -o jsonpath='http://{.spec.host}/auth')
+SSO_URL=$(oc get route secure-sso -o jsonpath='https://{.spec.host}/auth')
 ```
 
 - Start Spring Boot using Keycloak Auth address
