@@ -8,8 +8,8 @@ metadata:
     app.kubernetes.io/part-of: secured-http-example
     app.kubernetes.io/name: secured-http-service
     app.kubernetes.io/component: frontend
-    app.kubernetes.io/runtime: spring-boot
-    app.kubernetes.io/runtime-version: ${spring-boot.version}
+    app.openshift.io/runtime: rh-spring-boot
+    app.openshift.io/runtime-version: ${spring-boot.version}
 spec:
   port:
     targetPort: 8080
