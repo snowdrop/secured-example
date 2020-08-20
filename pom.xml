@@ -47,7 +47,7 @@
       <comments>A business-friendly OSS license</comments>
     </license>
   </licenses>
-  
+
 <repositories>
     <repository>
       <id>redhat-ga</id>
@@ -73,7 +73,7 @@
       <url>https://maven.repository.redhat.com/earlyaccess/all/</url>
     </pluginRepository>
   </pluginRepositories>
-  
+
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -92,6 +92,7 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
+
   <dependencies>
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -102,8 +103,17 @@
       <artifactId>spring-boot-starter-actuator</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.keycloak</groupId>
-      <artifactId>keycloak-spring-boot-starter</artifactId>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-configuration-processor</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency><!-- Needed to override SSL Trust Manager -->
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
     </dependency>
     <dependency>
       <groupId>org.jboss.arquillian.junit</groupId>
@@ -136,11 +146,6 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.awaitility</groupId>
-      <artifactId>awaitility</artifactId>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
       <scope>test</scope>
@@ -153,12 +158,6 @@
         <filtering>true</filtering>
       </resource>
     </resources>
-    <testResources>
-      <testResource>
-        <directory>src/test/resources</directory>
-        <filtering>true</filtering>
-      </testResource>
-    </testResources>
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
