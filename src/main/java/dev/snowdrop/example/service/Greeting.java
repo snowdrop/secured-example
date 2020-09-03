@@ -1,4 +1,4 @@
-/**
+/*
  * Licensed to the Apache Software Foundation (ASF) under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
@@ -19,6 +19,7 @@ package dev.snowdrop.example.service;
 public class Greeting {
 
     private final long id;
+
     private final String content;
 
     public Greeting() {

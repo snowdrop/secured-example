@@ -14,22 +14,22 @@
  * limitations under the License.
  */
 
-package dev.snowdrop.example.service;
+package dev.snowdrop.example.jwt;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties("greeting")
-public class GreetingProperties {
+@ConfigurationProperties("jwt")
+public class JwtProperties {
 
-    private String message = "Hello, %s!";
+    private String publicKey;
 
-    public String getMessage() {
-        return message;
+    public String getPublicKey() {
+        return publicKey;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setPublicKey(String publicKey) {
+        this.publicKey = publicKey;
     }
 }

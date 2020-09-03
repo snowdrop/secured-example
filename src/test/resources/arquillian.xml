@@ -7,5 +7,4 @@
     <property name="env.init.enabled">true</property>
     <property name="enableImageStreamDetection">false</property>
   </extension>
-
 </arquillian>
