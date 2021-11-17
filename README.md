@@ -2,12 +2,10 @@
 
 # How to play with the SSO Example locally
 
-NOTE: `service.sso.yaml` and `.openshiftio/service.sso.yaml` must be always kept in sync.
-
 - Deploy Keycloak on Openshift
 ```
 oc new-project sso
-oc create -f service.sso.yaml
+oc create -f .openshiftio/sso.yaml
 ```
 
 - Get Keycloak Auth Endpoint
@@ -35,6 +33,27 @@ curl -v http://localhost:8080/api/greeting
 User `alice` is recognised by the system and has permission to access the greeting service.
 `admin` on the other hand, is recognised by the system but cannot access the greeting service.
 
-- Try accessing the greeting service by using the form or the `curl` command displayed in the webpage. 
+- Try accessing the greeting service by using the form or the `curl` command displayed in the webpage.
 
 https://appdev.openshift.io/docs/spring-boot-runtime.html#mission-secured-spring-boot
+
+# How to play with the SSO Example on OpenShift
+
+- Deploy Keycloak on Openshift.
+```
+oc new-project sso
+oc create -f .openshiftio/sso.yaml
+```
+
+- Build and deploy the Spring Boot application using Dekorate.
+```
+mvn clean verify -Popenshift -Ddekorate.deploy=true
+```
+
+- Run Integration Tests.
+```
+oc delete project sso --ignore-not-found=true
+oc new-project sso
+oc apply -f .openshiftio/sso.yaml
+mvn clean verify -Popenshift,openshift-it
+```
