@@ -16,35 +16,44 @@
  */
 package dev.snowdrop.example;
 
-import java.net.URL;
-
-import org.arquillian.cube.openshift.impl.enricher.AwaitRoute;
-import org.arquillian.cube.openshift.impl.enricher.RouteURL;
-import org.jboss.arquillian.junit.Arquillian;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 
-@RunWith(Arquillian.class)
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+
+import io.dekorate.testing.annotation.Inject;
+import io.dekorate.testing.openshift.annotation.OpenshiftIntegrationTest;
+import io.fabric8.kubernetes.client.KubernetesClient;
+import io.fabric8.openshift.api.model.Route;
+import io.fabric8.openshift.client.OpenShiftClient;
+
+@OpenshiftIntegrationTest
 public class OpenShiftIT {
 
     private static final String CLIENT_ID = "demoapp";
 
     private static final String CLIENT_SECRET = "1daa57a2-b60e-468b-a3ac-25bd2dc2eadc";
 
-    @RouteURL(value = "${app.name}", path = "/api/greeting")
-    @AwaitRoute(path = "/actuator/health")
-    private URL greetingUrl;
+    @Inject
+    KubernetesClient kubernetesClient;
 
-    @RouteURL(value = "secure-sso", path = "/auth/realms/master/protocol/openid-connect/token")
+    private URL greetingUrl;
     private URL tokenUrl;
+
+    @BeforeEach
+    public void setup() throws MalformedURLException {
+        greetingUrl = getBaseUrlByRouteName("rest-secured", "/api/greeting");
+        tokenUrl = getBaseUrlByRouteName("sso", "/auth/realms/master/protocol/openid-connect/token");
+    }
 
     @Test
     public void shouldNotGetGreetingWithoutToken() {
@@ -90,5 +99,13 @@ public class OpenShiftIT {
                 .then().statusCode(200)
                 .and().extract().body()
                 .jsonPath().getString("access_token");
+    }
+
+    private URL getBaseUrlByRouteName(String routeName, String path) throws MalformedURLException {
+        // TODO: In Dekorate 1.7, we can inject Routes directly, so we won't need to do this:
+        Route route = kubernetesClient.adapt(OpenShiftClient.class).routes().withName(routeName).get();
+        String protocol = route.getSpec().getTls() == null ? "http" : "https";
+        int port = "http".equals(protocol) ? 80 : 443;
+        return new URL(protocol, route.getSpec().getHost(), port, path);
     }
 }
