@@ -30,24 +30,20 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 
-import io.dekorate.testing.annotation.Inject;
-import io.dekorate.testing.openshift.annotation.OpenshiftIntegrationTest;
 import io.fabric8.kubernetes.client.KubernetesClient;
 import io.fabric8.openshift.api.model.Route;
 import io.fabric8.openshift.client.OpenShiftClient;
 
-@OpenshiftIntegrationTest
-public class OpenShiftIT {
+public abstract class AbstractOpenShiftIT {
 
     private static final String CLIENT_ID = "demoapp";
 
     private static final String CLIENT_SECRET = "1daa57a2-b60e-468b-a3ac-25bd2dc2eadc";
 
-    @Inject
-    KubernetesClient kubernetesClient;
-
     private URL greetingUrl;
     private URL tokenUrl;
+
+    protected abstract KubernetesClient getKubernetesClient();
 
     @BeforeEach
     public void setup() throws MalformedURLException {
@@ -58,7 +54,7 @@ public class OpenShiftIT {
     @Test
     public void shouldNotGetGreetingWithoutToken() {
         when().get(greetingUrl)
-                .then().statusCode(HttpStatus.UNAUTHORIZED.value());
+                .then().log().all().statusCode(HttpStatus.UNAUTHORIZED.value());
     }
 
     @Test
@@ -66,7 +62,7 @@ public class OpenShiftIT {
         String token = getToken("admin", "admin");
         given().header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                 .when().get(greetingUrl)
-                .then().statusCode(HttpStatus.FORBIDDEN.value());
+                .then().log().all().statusCode(HttpStatus.FORBIDDEN.value());
     }
 
     @Test
@@ -75,7 +71,7 @@ public class OpenShiftIT {
         given().header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                 .when().get(greetingUrl)
                 .then().statusCode(HttpStatus.OK.value())
-                .and().body("content", is(equalTo("Hello, World!")));
+                .and().log().all().body("content", is(equalTo("Hello, World!")));
     }
 
     @Test
@@ -84,7 +80,15 @@ public class OpenShiftIT {
         given().header(HttpHeaders.AUTHORIZATION, "Bearer " + token)
                 .when().get(greetingUrl + "?name=Scott")
                 .then().statusCode(HttpStatus.OK.value())
-                .and().body("content", is(equalTo("Hello, Scott!")));
+                .and().log().all().body("content", is(equalTo("Hello, Scott!")));
+    }
+
+    protected URL getBaseUrlByRouteName(String routeName, String path) throws MalformedURLException {
+        // TODO: In Dekorate 1.7, we can inject Routes directly, so we won't need to do this:
+        Route route = getKubernetesClient().adapt(OpenShiftClient.class).routes().withName(routeName).get();
+        String protocol = route.getSpec().getTls() == null ? "http" : "https";
+        int port = "http".equals(protocol) ? 80 : 443;
+        return new URL(protocol, route.getSpec().getHost(), port, path);
     }
 
     private String getToken(String username, String password) {
@@ -96,16 +100,8 @@ public class OpenShiftIT {
                 .and().formParam("password", password)
                 .and().contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
                 .when().post(tokenUrl)
-                .then().statusCode(200)
+                .then().log().all().statusCode(200)
                 .and().extract().body()
                 .jsonPath().getString("access_token");
-    }
-
-    private URL getBaseUrlByRouteName(String routeName, String path) throws MalformedURLException {
-        // TODO: In Dekorate 1.7, we can inject Routes directly, so we won't need to do this:
-        Route route = kubernetesClient.adapt(OpenShiftClient.class).routes().withName(routeName).get();
-        String protocol = route.getSpec().getTls() == null ? "http" : "https";
-        int port = "http".equals(protocol) ? 80 : 443;
-        return new URL(protocol, route.getSpec().getHost(), port, path);
     }
 }
