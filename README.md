@@ -45,7 +45,7 @@ oc create -f .openshiftio/sso.yaml
 
 - Build and deploy the Spring Boot application using Dekorate.
 ```
-mvn clean verify -Popenshift -Ddekorate.deploy=true
+mvn clean verify -Popenshift -Ddekorate.deploy=true -DSSO_AUTH_SERVER_URL=${SSO_URL}
 ```
 
 # Running Tests on OpenShift using Dekorate:

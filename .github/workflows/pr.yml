@@ -19,7 +19,7 @@ jobs:
           distribution: 'adopt'
           cache: 'maven'
       - name: Build
-        run: ./mvnw -s .github/mvn-settings.xml clean verify
+        run: ./mvnw -s .github/mvn-settings.xml clean verify -DSSO_AUTH_SERVER_URL=http://sso:8080
   linux-build-ocp:
     name: PR - Linux - JVM ${{ matrix.java }} - OpenShift ${{ matrix.openshift }}
     needs: linux-build-local

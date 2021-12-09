@@ -52,6 +52,10 @@ parameters:
   description: Maven Nexus Repository to be used during build phase
   displayName:
   required: false
+- name: SSO_AUTH_SERVER_URL
+  description: The SSO Server URL
+  displayName:
+  required: true
 objects:
 - apiVersion: v1
   kind: ImageStream
@@ -100,7 +104,7 @@ objects:
         incremental: true
         env:
         - name: MAVEN_ARGS_APPEND
-          value: "-pl ${SOURCE_REPOSITORY_DIR}"
+          value: "-pl ${SOURCE_REPOSITORY_DIR} -DSSO_AUTH_SERVER_URL=${SSO_AUTH_SERVER_URL}"
         - name: ARTIFACT_DIR
           value: "${SOURCE_REPOSITORY_DIR}/target"
         - name: MAVEN_MIRROR_URL
