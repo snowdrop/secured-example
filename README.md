@@ -1,4 +1,14 @@
-# How to play with the SSO Example locally
+# Secured Spring Boot Example
+
+## Table of Contents
+
+* [Secured Spring Boot Example](#secured-spring-boot-example)
+    * [How to play with the SSO Example locally](#how-to-play-with-the-sso-example-locally)
+    * [How to play with the SSO Example on OpenShift](#how-to-play-with-the-sso-example-on-openshift)
+    * [Running Tests on OpenShift using Dekorate](#running-tests-on-openshift-using-dekorate)
+    * [Running Tests on OpenShift using S2i from Source](#running-tests-on-openshift-using-s2i-from-source)
+
+## How to play with the SSO Example locally
 
 - Deploy Keycloak on Openshift
 ```
@@ -35,7 +45,7 @@ User `alice` is recognised by the system and has permission to access the greeti
 
 https://appdev.openshift.io/docs/spring-boot-runtime.html#mission-secured-spring-boot
 
-# How to play with the SSO Example on OpenShift
+## How to play with the SSO Example on OpenShift
 
 - Deploy Keycloak on Openshift.
 ```
@@ -48,12 +58,20 @@ oc create -f .openshiftio/sso.yaml
 mvn clean verify -Popenshift -Ddekorate.deploy=true -DSSO_AUTH_SERVER_URL=${SSO_URL}
 ```
 
-# Running Tests on OpenShift using Dekorate:
+## Running Tests on OpenShift using Dekorate
+
 ```
 ./run_tests_with_dekorate.sh
 ```
 
-# Running Tests on OpenShift using S2i from Source:
+## Running Tests on OpenShift using S2i from Source
+
 ```
 ./run_tests_with_s2i.sh
+```
+
+This script can take 2 parameters referring to the repository and the branch to use to source the images from.
+
+```bash
+./run_tests_with_s2i.sh "https://github.com/snowdrop/secured-example" branch-to-test
 ```
