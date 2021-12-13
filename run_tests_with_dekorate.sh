@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 
+source scripts/waitFor.sh
+
 # Deploy SSO
 oc apply -f .openshiftio/sso.yaml
-sleep 30 # needed in order to bypass the 'Pending' state
-timeout 300s bash -c 'while [[ $(oc get pod -o json | jq  ".items[] | select(.metadata.name | contains(\"deploy\"))  | .status  " | jq -rs "sort_by(.startTme) | last | .phase") == "Running" ]]; do sleep 20; done; echo ""'
-oc logs $(oc get pod -o json | jq  ".items[] | select(.metadata.name | contains(\"sso\"))  | .metadata  " | jq -rs "sort_by(.startTme) | last | .name")
+if [[ $(waitFor "sso" "application") -eq 1 ]] ; then
+  echo "SSO failed to deploy. Aborting"
+  exit 1
+fi
 SSO_URL=$(oc get route secure-sso -o jsonpath='https://{.spec.host}/auth')
 
 # Run OpenShift Tests
