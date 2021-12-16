@@ -53,6 +53,12 @@ oc new-project sso
 oc create -f .openshiftio/sso.yaml
 ```
 
+Obtain the `SSO_URL`
+
+```shell
+SSO_URL=$(oc get route secure-sso -o jsonpath='https://{.spec.host}/auth')
+```
+
 - Build and deploy the Spring Boot application using Dekorate.
 ```
 mvn clean verify -Popenshift -Ddekorate.deploy=true -DSSO_AUTH_SERVER_URL=${SSO_URL}
