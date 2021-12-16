@@ -45,7 +45,7 @@ User `alice` is recognised by the system and has permission to access the greeti
 
 https://appdev.openshift.io/docs/spring-boot-runtime.html#mission-secured-spring-boot
 
-## How to play with the SSO Example on OpenShift
+## How to run the SSO Example on OpenShift
 
 - Deploy Keycloak on Openshift.
 ```
