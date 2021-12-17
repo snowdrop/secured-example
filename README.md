@@ -1,10 +1,12 @@
 # Secured Spring Boot Example
 
+https://appdev.openshift.io/docs/spring-boot-runtime.html#mission-secured-spring-boot
+
 ## Table of Contents
 
 * [Secured Spring Boot Example](#secured-spring-boot-example)
     * [How to play with the SSO Example locally](#how-to-play-with-the-sso-example-locally)
-    * [How to play with the SSO Example on OpenShift](#how-to-play-with-the-sso-example-on-openshift)
+    * [How to run the SSO Example on OpenShift](#how-to-run-the-sso-example-on-openshift)
     * [Running Tests on OpenShift using Dekorate](#running-tests-on-openshift-using-dekorate)
     * [Running Tests on OpenShift using S2i from Source](#running-tests-on-openshift-using-s2i-from-source)
 
@@ -18,7 +20,7 @@ oc create -f .openshiftio/sso.yaml
 
 - Get Keycloak Auth Endpoint
 ```
-SSO_URL=$(oc get route secure-sso -o jsonpath='https://{.spec.host}/auth')
+SSO_URL=$(oc get route sso -o jsonpath='http://{.spec.host}/auth')
 ```
 
 - Start the application. Provide the Keycloak URL in a `SSO_AUTH_SERVER_URL` parameter. 
@@ -43,8 +45,6 @@ User `alice` is recognised by the system and has permission to access the greeti
 
 - Try accessing the greeting service by using the form or the `curl` command displayed in the webpage.
 
-https://appdev.openshift.io/docs/spring-boot-runtime.html#mission-secured-spring-boot
-
 ## How to run the SSO Example on OpenShift
 
 - Deploy Keycloak on Openshift.
@@ -56,7 +56,7 @@ oc create -f .openshiftio/sso.yaml
 Obtain the `SSO_URL`
 
 ```shell
-SSO_URL=$(oc get route secure-sso -o jsonpath='https://{.spec.host}/auth')
+SSO_URL=$(oc get route sso -o jsonpath='http://{.spec.host}/auth')
 ```
 
 - Build and deploy the Spring Boot application using Dekorate.
