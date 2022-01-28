@@ -247,6 +247,7 @@ objects:
       app.kubernetes.io/vcs-uri: git@github.com:snowdrop/secured-example.git
     name: rest-secured
   spec:
+    path: /
     port:
       targetPort: 8080
     to:
