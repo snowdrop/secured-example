@@ -1,3 +1,5 @@
+# Workaround for issue with Dekorate: https://github.com/dekorateio/dekorate/pull/851
+management.endpoints.web.exposure.include: health,info
 jwt:
   # Keycloak realm public key
   public-key: MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoETnPmN55xBJjRzN/cs30OzJ9olkteLVNRjzdTxFOyRtS2ovDfzdhhO9XzUcTMbIsCOAZtSt8K+6yvBXypOSYvI75EUdypmkcK1KoptqY5KEBQ1KwhWuP7IWQ0fshUwD6jI1QWDfGxfM/h34FvEn/0tJ71xN2P8TI2YanwuDZgosdobx/PAvlGREBGuk4BgmexTOkAdnFxIUQcCkiEZ2C41uCrxiS4CEe5OX91aK9HKZV4ZJX6vnqMHmdDnsMdO+UFtxOBYZio+a1jP4W3d7J5fGeiOaXjQCOpivKnP2yU2DPdWmDMyVb67l8DRA+jh0OJFKZ5H2fNgE3II59vdsRwIDAQAB
@@ -14,7 +16,3 @@ dekorate:
     builder-image: registry.access.redhat.com/ubi8/openjdk-8:1.3
   openshift:
     expose: true
-    env-vars:
-      - name: SSO_AUTH_SERVER_URL
-        value: http://sso:8080
-

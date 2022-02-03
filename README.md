@@ -7,8 +7,10 @@ https://appdev.openshift.io/docs/spring-boot-runtime.html#mission-secured-spring
 * [Secured Spring Boot Example](#secured-spring-boot-example)
     * [How to play with the SSO Example locally](#how-to-play-with-the-sso-example-locally)
     * [How to run the SSO Example on OpenShift](#how-to-run-the-sso-example-on-openshift)
+    * [Deploying application on OpenShift using Helm](#deploying-application-on-openshift-using-helm)
     * [Running Tests on OpenShift using Dekorate](#running-tests-on-openshift-using-dekorate)
     * [Running Tests on OpenShift using S2i from Source](#running-tests-on-openshift-using-s2i-from-source)
+    * [Running Tests on OpenShift using Helm](#running-tests-on-openshift-using-helm)
 
 ## How to play with the SSO Example locally
 
@@ -64,6 +66,35 @@ SSO_URL=$(oc get route sso -o jsonpath='http://{.spec.host}/auth')
 mvn clean verify -Popenshift -Ddekorate.deploy=true -DSSO_AUTH_SERVER_URL=${SSO_URL}
 ```
 
+## Deploying application on OpenShift using Helm
+
+First, make sure you have installed [the Helm command line](https://helm.sh/docs/intro/install/) and connected/logged to a kubernetes cluster.
+
+Now, deploy Keycloak on Openshift.
+```
+oc create -f .openshiftio/sso.yaml
+```
+
+And obtain the `SSO_URL`:
+
+```shell
+SSO_URL=$(oc get route sso -o jsonpath='http://{.spec.host}/auth')
+```
+
+Then, you need to install the example by doing:
+
+```
+helm install secured ./helm --set spring-boot-example-app.s2i.source.repo=https://github.com/snowdrop/secured-example --set spring-boot-example-app.s2i.source.ref=<branch-to-use> --set spring-boot-example-app.s2i.env[0].name="MAVEN_ARGS_APPEND" --set spring-boot-example-app.s2i.env[0].value="-DSSO_AUTH_SERVER_URL=${SSO_URL}"
+```
+
+**note**: Replace `<branch-to-use>` with one branch from `https://github.com/snowdrop/secured-example/branches/all`.
+
+And to uninstall the chart, execute:
+
+```
+helm uninstall secured
+```
+
 ## Running Tests on OpenShift using Dekorate
 
 ```
@@ -80,4 +111,16 @@ This script can take 2 parameters referring to the repository and the branch to 
 
 ```bash
 ./run_tests_with_s2i.sh "https://github.com/snowdrop/secured-example" branch-to-test
+```
+
+## Running Tests on OpenShift using Helm
+
+```
+./run_tests_with_helm.sh
+```
+
+This script can take 2 parameters referring to the repository and the branch to use to source the images from.
+
+```bash
+./run_tests_with_helm.sh "https://github.com/snowdrop/secured-example" branch-to-test
 ```

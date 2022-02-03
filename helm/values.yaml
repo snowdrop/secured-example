@@ -1,0 +1,7 @@
+spring-boot-example-app:
+  name: rest-secured
+  version: 2.5.8-1-SNAPSHOT
+  s2i:
+    env:
+      - name: MAVEN_ARGS_APPEND
+        value: "-DSSO_AUTH_SERVER_URL=${SSO_AUTH_SERVER_URL}"
