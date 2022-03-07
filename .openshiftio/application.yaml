@@ -4,7 +4,7 @@ metadata:
   name: rest-secured
   labels:
     app.kubernetes.io/part-of: secured-api-example
-    app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
+    app.openshift.io/runtime-version: "2.2.5"
     app.openshift.io/runtime: rh-spring-boot
     app.kubernetes.io/name: secured-api
     app.kubernetes.io/component: frontend
@@ -78,7 +78,7 @@ objects:
     name: rest-secured
     labels:
       app.kubernetes.io/part-of: secured-api-example
-      app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
+      app.openshift.io/runtime-version: "2.2.5"
       app.openshift.io/runtime: rh-spring-boot
       app.kubernetes.io/name: secured-api
       app.kubernetes.io/component: frontend
@@ -88,7 +88,7 @@ objects:
     output:
       to:
         kind: ImageStreamTag
-        name: rest-secured:BOOSTER_VERSION
+        name: rest-secured:2.5.10-1-redhat
     postCommit: {}
     resources: {}
     source:
@@ -127,10 +127,10 @@ objects:
     labels:
       app: rest-secured
       provider: snowdrop
-      version: "BOOSTER_VERSION"
+      version: "2.5.10-1-redhat"
       group: dev.snowdrop.example
       app.kubernetes.io/part-of: secured-api-example
-      app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
+      app.openshift.io/runtime-version: "2.2.5"
       app.openshift.io/runtime: rh-spring-boot
       app.kubernetes.io/name: secured-api
       app.kubernetes.io/component: frontend
@@ -153,10 +153,10 @@ objects:
     labels:
       app: rest-secured
       provider: snowdrop
-      version: "BOOSTER_VERSION"
+      version: "2.5.10-1-redhat"
       group: dev.snowdrop.example
       app.kubernetes.io/part-of: secured-api-example
-      app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
+      app.openshift.io/runtime-version: "2.2.5"
       app.openshift.io/runtime: rh-spring-boot
       app.kubernetes.io/name: secured-api
       app.kubernetes.io/component: frontend
@@ -178,10 +178,10 @@ objects:
         labels:
           app: rest-secured
           provider: snowdrop
-          version: "BOOSTER_VERSION"
+          version: "2.5.10-1-redhat"
           group: dev.snowdrop.example
           app.kubernetes.io/part-of: secured-api-example
-          app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
+          app.openshift.io/runtime-version: "2.2.5"
           app.openshift.io/runtime: rh-spring-boot
           app.kubernetes.io/name: secured-api
           app.kubernetes.io/component: frontend
@@ -196,7 +196,7 @@ objects:
                 fieldPath: metadata.namespace
           - name: SSO_AUTH_SERVER_URL
             value: http://sso:8080
-          image: rest-secured:BOOSTER_VERSION
+          image: rest-secured:2.5.10-1-redhat
           imagePullPolicy: IfNotPresent
           name: spring-boot
           ports:
@@ -228,7 +228,7 @@ objects:
         - spring-boot
         from:
           kind: ImageStreamTag
-          name: rest-secured:BOOSTER_VERSION
+          name: rest-secured:2.5.10-1-redhat
       type: ImageChange
 - apiVersion: v1
   kind: Route
@@ -236,10 +236,10 @@ objects:
     labels:
       app: rest-secured
       provider: snowdrop
-      version: "BOOSTER_VERSION"
+      version: "2.5.10-1-redhat"
       group: dev.snowdrop.example
       app.kubernetes.io/part-of: secured-api-example
-      app.openshift.io/runtime-version: "SPRING_BOOT_VERSION"
+      app.openshift.io/runtime-version: "2.2.5"
       app.openshift.io/runtime: rh-spring-boot
       app.kubernetes.io/name: secured-api
       app.kubernetes.io/component: frontend
