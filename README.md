@@ -5,12 +5,17 @@ https://appdev.openshift.io/docs/spring-boot-runtime.html#mission-secured-spring
 ## Table of Contents
 
 * [Secured Spring Boot Example](#secured-spring-boot-example)
+    * [Prerequisites](#prerequisites)
     * [How to play with the SSO Example locally](#how-to-play-with-the-sso-example-locally)
     * [How to run the SSO Example on OpenShift](#how-to-run-the-sso-example-on-openshift)
     * [Deploying application on OpenShift using Helm](#deploying-application-on-openshift-using-helm)
     * [Running Tests on OpenShift using Dekorate](#running-tests-on-openshift-using-dekorate)
     * [Running Tests on OpenShift using S2i from Source](#running-tests-on-openshift-using-s2i-from-source)
     * [Running Tests on OpenShift using Helm](#running-tests-on-openshift-using-helm)
+
+## Prerequisites
+
+- JDK 11+ installed with JAVA_HOME configured appropriately
 
 ## How to play with the SSO Example locally
 
