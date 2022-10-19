@@ -9,3 +9,9 @@ spring:
         jwt:
           issuer-uri: ${SSO_AUTH_SERVER_URL}/realms/master
           jwk-set-uri: ${SSO_AUTH_SERVER_URL}/realms/master/protocol/openid-connect/certs
+# Dekorate
+dekorate:
+  s2i:
+    builder-image: registry.access.redhat.com/ubi8/openjdk-11:1.14
+  openshift:
+    expose: true

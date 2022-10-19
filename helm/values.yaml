@@ -1,11 +1,11 @@
 spring-boot-example-app:
   name: rest-secured
-  version: 2.5.8-1-SNAPSHOT
+  version: 2.7-SNAPSHOT
   s2i:
     # Default s2i source repository
     source:
       repo: https://github.com/snowdrop/secured-example
-      ref: sb-2.5.x
+      ref: sb-2.7.x
     env:
       - name: MAVEN_ARGS_APPEND
         value: "-DSSO_AUTH_SERVER_URL=${SSO_AUTH_SERVER_URL}"
